@@ -26,10 +26,11 @@
             </div>
         </div>
         <!-- 输入消息的表单 -->
-        <form @submit.prevent="sendMessage" class="input-form">
-            <input v-model="inputText" type="text" placeholder="输入消息" />
-            <button type="submit">发送</button>
-        </form>
+        <div class="input-form">
+            <el-input type="textarea" :autosize="{ minRows: 4, maxRows: 4}" placeholder="请输入内容" v-model="inputText">
+            </el-input>
+                <el-button class="subBut" size="mini" @click="submit" icon="el-icon-upload2" type="primary" circle></el-button>
+        </div>
     </div>
 </template>
 
@@ -45,6 +46,13 @@ export default {
         };
     },
     methods: {
+        submit(){
+
+            if (this.inputText.trim()) {
+                this.messages.push({ id: Date.now(), text: this.inputText, isMe: true });
+                this.inputText = '';
+            }
+        },
         sendMessage() {
             if (this.inputText.trim()) {
                 this.messages.push({ id: Date.now(), text: this.inputText, isMe: true });
@@ -56,6 +64,11 @@ export default {
 </script>
 
 <style scoped>
+.subBut{
+    position: absolute;
+    right: 20px;
+    bottom: 0px;
+}
 .isMe {
     width: 90%;
     float: right;
@@ -71,18 +84,26 @@ export default {
     float: left;
     margin: 15px 0px;
 }
-
+.notMe .el-card{
+    /* background: aqua; */
+}
 .chat-window {
-    max-width: 400px;
+    /* max-width: 400px;
     margin: 0 auto;
     overflow: hidden;
-    overflow-y: auto;
+    overflow-y: auto; */
     height: 100%;
-    scrollbar-width: none;
+    /* scrollbar-width: none; */
 }
 
 .message-container {
     margin-bottom: 10px;
+    max-width: 98%;
+    margin: 0 auto;
+    overflow: hidden;
+    overflow-y: auto;
+    height: calc(100% - 80px);
+    scrollbar-width: none;
 }
 
 .message {
@@ -94,7 +115,13 @@ export default {
     padding: 10px;
     border-radius: 5px;
 }
-
+.input-form{
+    position: absolute;
+    bottom: 10px;
+    height: 80px;
+    margin: 0px 40px;
+    width: calc(100% - 80px);
+}
 .mine {
     background-color: lightblue;
 }

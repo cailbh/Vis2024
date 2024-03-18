@@ -14,8 +14,7 @@
   float: right;
   position: absolute;
   bottom: 17px;
-  height: calc(100% - 360px);
-  overflow: auto;
+  height: calc(100% - 407px);
 }
 .buildingLabel {
   width: 600px;

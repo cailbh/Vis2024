@@ -13,13 +13,12 @@
       <div id="allBody">
         <div id="left">
 
-          <div id="controlPanel" class="panel">
+          <!-- <div id="controlPanel" class="panel">
             <ControlPanel></ControlPanel>
           </div>
           <div id="overviewPanel" class="panel">
             <OverviewPanel></OverviewPanel>
-            <!-- <ControlPanel></ControlPanel> -->
-          </div>
+          </div> -->
         </div>
         <transition name="graphTran">
           <div id="graphContainer" v-show="showGraph" class="panel">

@@ -6,6 +6,72 @@ function calcTriangle(x, y, r) {
   let areas = [[x - r * (Math.sqrt(3)) / 2, y + r / 2], [x + r * (Math.sqrt(3)) / 2, y + r / 2], [x, y - r]];
   return areas;
 }
+
+function calcRect(x, y, r) {
+  let areas = [[x - r/ 2, y - r / 2], [x + r/ 2, y - r / 2], [x + r/ 2, y + r / 2],[x - r/ 2, y + r / 2]];
+  return areas;
+}
+
+function drawTxt(svg, tx, ty, txts, fill, size, idName,anchor ='') {
+  let txt = svg.append("text")
+    .attr("y", ty)
+    .attr("x", tx)
+    .attr("id", idName)
+    .attr("fill", fill)
+    .attr("font-size", size)
+    .style("text-anchor", anchor)
+    .text(txts)
+
+  let textArea = document.getElementById(idName).getBBox();
+  return [txt,textArea];
+  // .style("text-anchor", anchor)//"middle")
+  // .attr("transform", `rotate(${roat} ${tx} ${ty})`);
+}
+function drawTimeLine(svg, path, stroke, width, stroke_dasharray = "0", idName, className) {
+  let line = svg.append('path')
+    .attr('d', path.toString())
+    .attr('stroke', stroke)
+    .attr('class', className)
+    .attr('id', idName)
+    .attr("stroke-dasharray", stroke_dasharray)
+    .attr('stroke-width', width)
+    .attr('fill', 'none')
+    return line;
+}
+function drawCircle(svg, x, y, r, fill, opacity, stroke, width, className = 'circle', idName) {
+  let circle = svg.append("circle")
+    .attr("id", idName)
+    .attr("class", className)
+    .attr("opacity", opacity)
+    .attr("cx", x)
+    .attr("cy", y)
+    .attr("r", r)
+    .attr('stroke', stroke)
+    .attr('stroke-width', width)
+    .attr("fill", fill)
+  return circle;
+}
+function hasDuplicates(arr1, arr2) {
+  for (let i = 0; i < arr1.length; i++) {
+    for (let j = 0; j < arr2.length; j++) {
+      if (arr1[i] === arr2[j]) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+function drawPolygon(svg, points, idName, strokeWidth, stroke, fill) {
+  let polygon = svg.append("polygon")
+    .attr("points", points)
+    .attr("id", idName)
+    .attr("stroke-linejoin", "round")
+
+    .attr("stroke-width", strokeWidth)
+    .attr("fill", fill)
+    .attr("stroke", stroke)
+  return polygon;
+}
 function drawRect(svg, x, y, w, h, rx, fill, strokeWidth, stroke, opacity, idName, className,strokeDasharray = '0') {
   d3.select(`#${idName}`).remove();
   let rect = svg.append("rect")
@@ -22,6 +88,17 @@ function drawRect(svg, x, y, w, h, rx, fill, strokeWidth, stroke, opacity, idNam
     .attr("stroke-width", strokeWidth)
     .attr("stroke-dasharray", strokeDasharray)
   return rect;
+}
+function drawArc(svg, x, y, arcPath, stroke, fill, className, stroke_dasharray = "0", width = 3) {
+  svg.append("path")
+    .attr("d", arcPath)
+    .attr("class", className)
+    .attr("transform", "translate(" + x + "," + y + ")")
+    .attr("stroke", stroke)
+    .attr('stroke-width', width)
+    .attr("stroke-dasharray", stroke_dasharray)
+    .attr("stroke-linejoin", "round")
+    .attr("fill", fill)
 }
 
 function time2seconds(time) {
@@ -98,9 +175,30 @@ export default {
    createWorkers:()=>{
     return createWorkers();
    },
-   drawRect:(svg, x, y, w, h, rx, fill, strokeWidth, stroke, opacity, idName, className,strokeDasharray = '0')=>{
-    return drawRect(svg, x, y, w, h, rx, fill, strokeWidth, stroke, opacity, idName, className,strokeDasharray = '0')},
+   drawRect:(svg, x, y, w, h, rx, fill, strokeWidth, stroke, opacity, idName, className,strokeDasharray)=>{
+    return drawRect(svg, x, y, w, h, rx, fill, strokeWidth, stroke, opacity, idName, className,strokeDasharray)},
     getVideoCanvas:(idName)=>{
       return getVideoCanvas(idName);
+    },
+    drawTxt:(svg, tx, ty, txts, fill, size, idName)=>{
+      return drawTxt(svg, tx, ty, txts, fill, size, idName);
+    },
+    drawCircle:(svg, x, y, r, fill, opacity, stroke, width, className, idName)=>{
+      return drawCircle(svg, x, y, r, fill, opacity, stroke, width, className, idName);
+    },
+    drawPolygon:(svg, points, idName, strokeWidth, stroke, fill) =>{
+      return drawPolygon(svg, points, idName, strokeWidth, stroke, fill);
+    },
+    drawArc:(svg, x, y, arcPath, stroke, fill, className, stroke_dasharray, width) =>{
+      return drawArc(svg, x, y, arcPath, stroke, fill, className, stroke_dasharray, width);
+    },
+    drawTimeLine:(svg, path, stroke, width, stroke_dasharray, idName, className) =>{
+      return drawTimeLine(svg, path, stroke, width, stroke_dasharray, idName, className) ;
+    },
+    calcRect:(x, y, r)=>{
+      return calcRect(x, y, r);
+    } ,
+    hasDuplicates:(arr1, arr2)=>{
+      return hasDuplicates(arr1, arr2);
     }
 }

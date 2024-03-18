@@ -1,7 +1,7 @@
 .video {
   /* margin: 50px; */
     width: calc(100% - 0px);
-    height: calc(100% - 140px);
+    height: calc(100% - 0px);
     align-content: center;
     /* position: fixed; */
     /* z-index: 100; */
@@ -30,33 +30,32 @@
   }
   .perVideo{
     /* width: 80%; */
-    height: calc(100% - 0px);
+    height: calc(100% - 100px);
     text-align: center;
     margin: auto;
   }
   #rootTopicLine{
     float: left;
     /* background-color: aqua; */
-    height: 57px;
+    height: 80px;
     width: 100%;
     overflow: hidden;
-    transform: translateY(-34px);
+    transform: translateY(27px);
     position: relative;
     z-index: 500;
     /* border-bottom: solid rgba(179, 179, 179, 1) 3px */
   }
   #progressBar{
     position:relative;
-    top: 27px;
+    top: 2px;
     background: #83FFFD;
     /* float: left; */
     /* margin-top: ; */
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 1px;
     width: calc(100% - 0px);
-    height: 6px;
-    margin-left: 5px;
-    margin-left: 5px;
+    height: 240px;
+    margin-left: 0px;
   }
     #videoScriptUp {
       height: 50px;
@@ -67,14 +66,17 @@
       /* margin: 15px; */
       /* margin-top: 20px; */
       /* border-radius: 20px; */
+      transform: translateY(-56px);
   }
     #videoScript {
       height: 60px;
-      background: rgb(240, 248, 255);
+      background: rgba(240, 248, 255, 0);
       width: calc(100% - 30px);
       /* padding: 25px; */
       /* border: dashed rgb(179, 179, 179) 5px; */
-      margin: 15px;
+      /* margin: 15px; */
+      /* color: white; */
+      transform: translateY(-140px);
       /* margin-top: 20px; */
       /* border-radius: 20px; */
   }
@@ -83,7 +85,7 @@
   }
   #timeDurText{
     margin-left: 60px;
-    transform: translateY(-70px);
+    transform: translateY(-25px);
     color: rgb(29, 29, 29);
     font-size: 20px;
   }

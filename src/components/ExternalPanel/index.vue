@@ -28,8 +28,8 @@ export default {
       showExternal: false,
       width: '',
       height: '',
-      zoomVideoWidth: 320,
-      zoomVideoHeight: 180,
+      zoomVideoWidth: 640,
+      zoomVideoHeight: 360,
       videoG: '',
       tagVideoSize: [640, 360],
       tagsList: [],
@@ -76,7 +76,7 @@ export default {
       const _this = this;
       let g = this.videoG;
       let videoWidth = this.width;
-      let videoHeight = this.zoomVideoHeight * this.width / this.zoomVideoWidth;
+      let videoHeight =  this.width*this.zoomVideoHeight / this.zoomVideoWidth ;
       let canvas = tools.getVideoCanvas("playVideo");
       // StackBlur.canvasRGB(canvas, 0, 0, videoWidth, videoHeight, 100);
       var dataURLBack = canvas.toDataURL("image/png");  //将图片转成base64格式
@@ -86,6 +86,8 @@ export default {
         .attr("class", "videoShowTags")
         .attr("width", videoWidth)
         .attr("height", videoHeight)
+        .attr("vector-effect", "non-scaling-stroke")
+        .attr("preserveAspectRatio","none") 
         .attr("xlink:href", dataURLBack)
 
       // tools.drawRect(g, x, y, w, h, rx, fill, strokeWidth, stroke, opacity, idName, className,'0')
