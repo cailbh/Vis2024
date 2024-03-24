@@ -1,5 +1,5 @@
 <template>
-  <div id="root">
+  <div id="root" style="font-family: 'Arial';">
     <!-- <button1 ref="button1"></button1>
     <button v-on:click="clickHandler">按钮</button> -->
     <!-- <svg width="1200" height="1000"></svg> -->
@@ -104,23 +104,32 @@ export default {
         "rgb(168,168,255)",
         "rgb(200,200,200)",
       ],
+      
+      tagsColor:{
+          "text":"rgb(239, 188, 105)",
+          "figure":"rgb(80, 132, 96)",
+          "equation":"rgb(205, 94, 104)",
+          "code block":"rgb(105, 23, 170)",
+      },
       marge: {
         top: 6,
         right: 10,
         bottom: 16,
         left: 6,
       },
+      videoDur:672,
       barType: "Teaching",
     };
   },
   watch: {
     playOrPause(val) {
-      console.log(val)
+      console.log(val);
       this.showGraph = !val;
       this.showExternal = !val;
       this.$bus.$emit("showGraph", this.showGraph);
+      this.$bus.$emit('tagsColor',this.tagsColor);
+      this.$bus.$emit("videoDurs", this.videoDur);
       this.$bus.$emit("showExternal", this.showExternal);
-      
     },
     toolState(val) {
       if (val == 'edit')
@@ -189,7 +198,8 @@ export default {
     this.$bus.$on('playOrPause', (val) => {
       _this.playOrPause = val;
     });
-
+    this.$bus.$emit('videoTotalDur',_this.videoDur);
+    this.$bus.$emit('tagsColor',_this.tagsColor);
     this.$bus.$on('toolState', (val) => {
       _this.toolState = val;
     });

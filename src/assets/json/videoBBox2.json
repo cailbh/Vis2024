@@ -1,0 +1,857 @@
+[
+    {
+        "id": "text0",
+        "boundingBox": {
+            "height": 186.81083060599664,
+            "width": 1120.6283644711843,
+            "left": 1314.8575047498418,
+            "top": 719.1892139331715
+        },
+        "timeDur": [
+            651.466667,
+            667.466667
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "text1",
+        "boundingBox": {
+            "height": 98.59459954339106,
+            "width": 527.888596421786,
+            "left": 1024.324236067131,
+            "top": 54.97296307538007
+        },
+        "timeDur": [
+            616.066667,
+            667.466667
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "text2",
+        "boundingBox": {
+            "height": 105.08106128589527,
+            "width": 1540.863877454085,
+            "left": 141.051298290057,
+            "top": 234.00000494879646
+        },
+        "timeDur": [
+            616.066667,
+            667.466667
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "figure0",
+        "boundingBox": {
+            "height": 929.0270418734168,
+            "width": 843.0652311589614,
+            "left": 231.84293856871437,
+            "top": 371.5134986671243
+        },
+        "timeDur": [
+            616.066667,
+            667.466667
+        ],
+        "type": "figure",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "text3",
+        "boundingBox": {
+            "height": 201.0810810810811,
+            "width": 2298.3255323780877,
+            "left": 129.37811708359723,
+            "top": 8.270255423880913
+        },
+        "timeDur": [
+            555.766667,
+            616.066667
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "figure1",
+        "boundingBox": {
+            "height": 921.0810810810812,
+            "width": 985.7379076947435,
+            "left": 768.8106594363521,
+            "top": 332.59457974820526
+        },
+        "timeDur": [
+            555.766667,
+            616.066667
+        ],
+        "type": "figure",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "text4",
+        "boundingBox": {
+            "height": 112.86485001847551,
+            "width": 1172.5092028182394,
+            "left": 694.8803633628879,
+            "top": 49.78377883498733
+        },
+        "timeDur": [
+            483,
+            555.766667
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "text5",
+        "boundingBox": {
+            "height": 105.08106128589527,
+            "width": 1352.7954302564915,
+            "left": 137.16023788790375,
+            "top": 171.7297445761191
+        },
+        "timeDur": [
+            483,
+            555.766667
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "figure2",
+        "boundingBox": {
+            "height": 809.5134838207348,
+            "width": 968.8765634895504,
+            "left": 775.2957765991134,
+            "top": 392.27028511665964
+        },
+        "timeDur": [
+            483,
+            555.766667
+        ],
+        "type": "figure",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "text6",
+        "boundingBox": {
+            "height": 302.27030986064193,
+            "width": 2300.919638616213,
+            "left": 124.19000356238126,
+            "top": 1008.4864518449114
+        },
+        "timeDur": [
+            467.4,
+            483
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "text7",
+        "boundingBox": {
+            "height": 190.7026631123311,
+            "width": 2171.217196405953,
+            "left": 125.48700720392654,
+            "top": 1003.2973418364654
+        },
+        "timeDur": [
+            438.433333,
+            467.4
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": ["17","20"]
+    },
+    {
+        "id": "figure3",
+        "boundingBox": {
+            "height": 565.6216265704181,
+            "width": 780.8080668144396,
+            "left": 893.3248891703611,
+            "top": 77.02702702702703
+        },
+        "timeDur": [
+            420.6,
+            483
+        ],
+        "type": "figure",
+        "isConcept": [
+            false
+        ],
+        "concepts": ["16"],
+        "serveConcepts": ["17","20"]
+    },
+    {
+        "id": "text8",
+        "boundingBox": {
+            "height": 123.24324324324326,
+            "width": 1551.240005541482,
+            "left": 139.75429464851172,
+            "top": 719.1892139331715
+        },
+        "timeDur": [
+            420.6,
+            483
+        ],
+        "type": "text",
+        "isConcept": [
+            true
+        ],
+        "concepts": ["20"],
+        "serveConcepts": ["17","20"]
+    },
+    {
+        "id": "equation0",
+        "boundingBox": {
+            "height": 127.13507574957771,
+            "width": 667.9671667194427,
+            "left": 946.5028301139962,
+            "top": 854.1081526472763
+        },
+        "timeDur": [
+            420.6,
+            483
+        ],
+        "type": "equation",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": ["17","20"]
+    },
+    {
+        "id": "text9",
+        "boundingBox": {
+            "height": 356.7567567567568,
+            "width": 2291.840514170361,
+            "left": 143.645355050665,
+            "top": 951.4054499445735
+        },
+        "timeDur": [
+            380.8,
+            420.6
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": ["17","18"]
+    },
+    {
+        "id": "text10",
+        "boundingBox": {
+            "height": 128.432427483636,
+            "width": 2053.1880343571884,
+            "left": 256.4864035782141,
+            "top": 45.89187209670608
+        },
+        "timeDur": [
+            363.733333,
+            420.6
+        ],
+        "type": "text",
+        "isConcept": [
+            true
+        ],
+        "concepts": ["16","17","18","20"],
+        "serveConcepts": ["17"]
+    },
+    {
+        "id": "text11",
+        "boundingBox": {
+            "height": 184.21627560177365,
+            "width": 2315.1868765832805,
+            "left": 135.86323424635847,
+            "top": 963.0810464395059
+        },
+        "timeDur": [
+            363.733333,
+            380.8
+        ],
+        "type": "text",
+        "isConcept": [
+            true
+        ],
+        "concepts": ["16","17","18"],
+        "serveConcepts": ["18"]
+    },
+    {
+        "id": "figure4",
+        "boundingBox": {
+            "height": 579.8919017894848,
+            "width": 787.2932829322357,
+            "left": 892.0278855288158,
+            "top": 310.5405157965583
+        },
+        "timeDur": [
+            363.733333,
+            420.6
+        ],
+        "type": "figure",
+        "isConcept": [
+            false
+        ],
+        "concepts": ["16"],
+        "serveConcepts": ["17"]
+    },
+    {
+        "id": "text12",
+        "boundingBox": {
+            "height": 185.51355310388516,
+            "width": 2297.0284297815074,
+            "left": 129.37811708359723,
+            "top": 1116.1621671109588
+        },
+        "timeDur": [
+            341.8,
+            363.733333
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": ["16"]
+    },
+    {
+        "id": "text13",
+        "boundingBox": {
+            "height": 197.18914959881758,
+            "width": 2273.6820178910702,
+            "left": 133.26917748575048,
+            "top": 957.89193643106
+        },
+        "timeDur": [
+            330.366667,
+            363.733333
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": ["16"]
+    },
+    {
+        "id": "text14",
+        "boundingBox": {
+            "height": 221.83781804265203,
+            "width": 1081.7174635845472,
+            "left": 1309.6694901836606,
+            "top": 551.8378427866343
+        },
+        "timeDur": [
+            292.233333,
+            363.733333
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": ["16"]
+    },
+    {
+        "id": "text15",
+        "boundingBox": {
+            "height": 138.81082070840372,
+            "width": 512.3241569031032,
+            "left": 1032.1064558264725,
+            "top": 34.21620136982686
+        },
+        "timeDur": [
+            279.866667,
+            363.733333
+        ],
+        "type": "text",
+        "isConcept": [
+            true
+        ],
+        "concepts": ["16"],
+        "serveConcepts": ["16"]
+    },
+    {
+        "id": "text16",
+        "boundingBox": {
+            "height": 114.16215226456926,
+            "width": 1552.5370586605447,
+            "left": 131.97212436668778,
+            "top": 240.48649143528294
+        },
+        "timeDur": [
+            279.866667,
+            363.733333
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": ["16"],
+        "serveConcepts": ["16"]
+    },
+    {
+        "id": "figure5",
+        "boundingBox": {
+            "height": 587.6757152660473,
+            "width": 792.4812974984168,
+            "left": 269.4566379037366,
+            "top": 397.4594446130701
+        },
+        "timeDur": [
+            279.866667,
+            363.733333
+        ],
+        "type": "figure",
+        "isConcept": [
+            false
+        ],
+        "concepts": ["16"],
+        "serveConcepts": ["16"]
+    },
+    {
+        "id": "text17",
+        "boundingBox": {
+            "height": 116.75675675675676,
+            "width": 1443.5871694901837,
+            "left": 151.4274758549715,
+            "top": 435.08108602987755
+        },
+        "timeDur": [
+            263.633333,
+            279.866667
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "figure6",
+        "boundingBox": {
+            "height": 682.3784575591217,
+            "width": 809.34264170361,
+            "left": 892.0278855288158,
+            "top": 625.7837491422086
+        },
+        "timeDur": [
+            263.633333,
+            279.866667
+        ],
+        "type": "figure",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "text18",
+        "boundingBox": {
+            "height": 114.16217700855152,
+            "width": 370.9486819189361,
+            "left": 1102.145642020266,
+            "top": 53.67566082928632
+        },
+        "timeDur": [
+            246.233333,
+            279.866667
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "text19",
+        "boundingBox": {
+            "height": 241.2972775021115,
+            "width": 2242.5535841513615,
+            "left": 137.16023788790375,
+            "top": 175.62162657041807
+        },
+        "timeDur": [
+            246.233333,
+            279.866667
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "text20",
+        "boundingBox": {
+            "height": 125.83784773543076,
+            "width": 750.9764882837239,
+            "left": 916.6713505383154,
+            "top": 47.18917434279983
+        },
+        "timeDur": [
+            183.766667,
+            246.233333
+        ],
+        "type": "text",
+        "isConcept": [
+            true
+        ],
+        "concepts": ["10","11","12"],
+        "serveConcepts": []
+    },
+    {
+        "id": "figure7",
+        "boundingBox": {
+            "height": 576.0000692831504,
+            "width": 728.9272284673845,
+            "left": 511.99998020899307,
+            "top": 394.8648401208826
+        },
+        "timeDur": [
+            183.766667,
+            246.233333
+        ],
+        "type": "figure",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": ["10","11"]
+    },
+    {
+        "id": "figure8",
+        "boundingBox": {
+            "height": 736.864854967272,
+            "width": 822.3129749841672,
+            "left": 1323.9366291956935,
+            "top": 333.89190673828125
+        },
+        "timeDur": [
+            183.766667,
+            246.233333
+        ],
+        "type": "figure",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": ["10","12"]
+    },
+    {
+        "id": "text21",
+        "boundingBox": {
+            "height": 172.54058013091216,
+            "width": 2313.8897739867007,
+            "left": 125.48700720392654,
+            "top": 1144.7026680611275
+        },
+        "timeDur": [
+            183.766667,
+            246.233333
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": ["10","11","12"],
+        "serveConcepts": ["10","11","12"]
+    },
+    {
+        "id": "text22",
+        "boundingBox": {
+            "height": 118.05405900285051,
+            "width": 763.9467226092464,
+            "left": 910.1862333755541,
+            "top": 39.4053856102196
+        },
+        "timeDur": [
+            132.333333,
+            183.766667
+        ],
+        "type": "text",
+        "isConcept": [
+            true
+        ],
+        "concepts": ["10","11","12"],
+        "serveConcepts": []
+    },
+    {
+        "id": "text23",
+        "boundingBox": {
+            "height": 137.51354320629224,
+            "width": 2232.177258153895,
+            "left": 135.86323424635847,
+            "top": 157.4594446130701
+        },
+        "timeDur": [
+            132.333333,
+            183.766667
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": ["10","11","12"],
+        "serveConcepts": []
+    },
+    {
+        "id": "figure9",
+        "boundingBox": {
+            "height": 707.1891743428,
+            "width": 839.1742202343256,
+            "left": 374.5155161494617,
+            "top": 455.6756756756757
+        },
+        "timeDur": [
+            132.333333,
+            183.766667
+        ],
+        "type": "figure",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": ["10","11"]
+    },
+    {
+        "id": "figure10",
+        "boundingBox": {
+            "height": 896.4324621252111,
+            "width": 1019.4604971500951,
+            "left": 1327.8277390753642,
+            "top": 406.5405355917441
+        },
+        "timeDur": [
+            132.333333,
+            183.766667
+        ],
+        "type": "figure",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": ["10","12"]
+    },
+    {
+        "id": "text24",
+        "boundingBox": {
+            "height": 180.32434411951016,
+            "width": 2167.326185481317,
+            "left": 143.645355050665,
+            "top": 707.51351846231
+        },
+        "timeDur": [
+            119.133333,
+            132.333333
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "text25",
+        "boundingBox": {
+            "height": 110.27027027027027,
+            "width": 952.0152192843573,
+            "left": 811.6124722925903,
+            "top": 58.864845069679056
+        },
+        "timeDur": [
+            102.3,
+            132.333333
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "text26",
+        "boundingBox": {
+            "height": 180.32429463154563,
+            "width": 2153.0589475142497,
+            "left": 148.83346857188096,
+            "top": 510.3243193755279
+        },
+        "timeDur": [
+            102.3,
+            132.333333
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "text27",
+        "boundingBox": {
+            "height": 106.37843776393582,
+            "width": 1923.4858395345157,
+            "left": 138.45724152944902,
+            "top": 761.9999653584249
+        },
+        "timeDur": [
+            94.566667,
+            102.3
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "text28",
+        "boundingBox": {
+            "height": 328.21620631862334,
+            "width": 1675.7542847530083,
+            "left": 135.86323424635847,
+            "top": 309.2432382944468
+        },
+        "timeDur": [
+            82.433333,
+            102.3
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "figure11",
+        "boundingBox": {
+            "height": 627.8919116870777,
+            "width": 704.2836645028499,
+            "left": 908.889229734009,
+            "top": 703.6215869800465
+        },
+        "timeDur": [
+            63.733333,
+            82.433333
+        ],
+        "type": "figure",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "text29",
+        "boundingBox": {
+            "height": 188.10810810810813,
+            "width": 2098.5839039740345,
+            "left": 137.16023788790375,
+            "top": 415.6216265704181
+        },
+        "timeDur": [
+            53.333333,
+            82.433333
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "text30",
+        "boundingBox": {
+            "height": 111.56757251636402,
+            "width": 1356.6864906586447,
+            "left": 606.6827303673211,
+            "top": 40.70268785631335
+        },
+        "timeDur": [
+            24.066667,
+            82.433333
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    },
+    {
+        "id": "text31",
+        "boundingBox": {
+            "height": 245.67565093169347,
+            "width": 2182.241925269158,
+            "left": 139.4300189993667,
+            "top": 155.67567567567568
+        },
+        "timeDur": [
+            24.066667,
+            82.433333
+        ],
+        "type": "text",
+        "isConcept": [
+            false
+        ],
+        "concepts": [],
+        "serveConcepts": []
+    }
+]

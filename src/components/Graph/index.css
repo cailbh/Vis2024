@@ -8,9 +8,9 @@
 }
 .images{
   display: flex;
-  margin-top: 20px;
-  margin-left: 21px;
-  margin-right: 20px;
+  margin-top: 2px;
+  margin-left: 1px;
+  margin-right: 2px;
 }
 /* 图片之间 */
 .image-middle{
@@ -19,8 +19,8 @@
 }
 /* 单张图片样式 */
 .image{
-  width:320px;
-  height: 180px;
+  width:240px;
+  height: 135px;
   display: inline-block
 }
 .imagePreview{

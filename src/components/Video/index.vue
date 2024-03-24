@@ -36,9 +36,9 @@
         <img class="iconUpload" :src="videoUrl4">
       </div> -->
 
-      <div id="timeDurText">
+      <!-- <div id="timeDurText">
         {{ timeNow }}/{{ overTime }}
-      </div>
+      </div> -->
       <div id="iconVideo5" ref="iconVideo5">
         <img class="iconUpload" :src="videoUrl5">
       </div>
@@ -58,11 +58,11 @@ import VideoPlay from '@/components/VideoPlay';
 import tools from "@/utils/tools.js";
 // import scriptsData from '@/assets/json/case1scriptsData.json'
 import scriptsData from '@/assets/json/c1.json'
-import tagsData from '@/assets/json/videoBBox.json'
+import tagsData from '@/assets/json/videoBBox2.json'
 import * as StackBlur from "stackblur-canvas";
 import html2canvas from "html2canvas";
 
-import ConJson from "@/assets/json/fin.json";
+import ConJson from "@/assets/json/case2_fin.json";
 
 import { _ } from 'core-js';
 
@@ -92,17 +92,17 @@ export default {
       data: '',
       relData: '',
       timeDot: 0,
-      videoDur: 672,
+      videoDur: 0,
       timeNow: '1',
       overTime: '1',
       publicPath: process.env.BASE_URL,
       vertexShader: '',
       videoUrl1: require('@/assets/img/暂停.png'),
       videoUrl2: require('@/assets/img/快进.png'),
-      videoUrl3: require('@/assets/img/音量.png'),
+      videoUrl3: require('@/assets/img/暂停.png'),
       videoUrl4: require('@/assets/img/全屏.png'),
       videoUrl5: require('@/assets/img/addTopic.png'),
-      videoUrl: require('@/assets/videos/index.mp4'),
+      videoUrl: require('@/assets/videos/case2.mp4'),
       videoCover: require('@/assets/img/tt.jpg'),
       windowWidth: document.documentElement.clientWidth, //实时屏幕宽度
       windowHeight: document.documentElement.clientHeight, //实时屏幕高度
@@ -120,7 +120,8 @@ export default {
       editVideoEP: [],
       tagsList: [],
       certenTag: "",
-      tagVideoSize: [640, 360],
+      // tagVideoSize: [640, 360],
+      tagVideoSize: [2540, 1440],
       playOrPause: true,
       showGraph: false,
       showExternal: false,
@@ -130,10 +131,14 @@ export default {
       importanceCompute_color: "",
       relevanceScale_linear: "",
 
-      importanceMaxColor: "rgb(143, 142, 184)",
-      importanceMinColor: "rgb(206, 199, 209)",
+      importanceMaxColor: "rgb(19, 115, 178)",
+      importanceMinColor: "rgb(136, 182, 211)",
       minDRelevance: 0,
       maxDRelevance: 0,
+      nx:0,
+      px:0,
+      fatherSonRelList: [],
+      tagsColor:'',
       relList: [],
       relG: '',
     };
@@ -179,9 +184,11 @@ export default {
       _this.$bus.$emit("playOrPause", _this.playOrPause);
 
       if (_this.playOrPause == false) {
+        _this.videoUrl1 = _this.videoUrl2;
         _this.VideoClass['showCertenTag'] = true;
         _this.VideoClass['unShowCertenTag'] = false;
       } else {
+        _this.videoUrl1 = _this.videoUrl3;
         svg.selectAll(".videoShowTags").remove();
         _this.VideoClass['showCertenTag'] = false;
         _this.VideoClass['unShowCertenTag'] = true;
@@ -189,8 +196,7 @@ export default {
     },
     addSvg() {
       const _this = this;
-      _this.VideoEditPanelShow = true,
-        console.log("yes");
+      _this.VideoEditPanelShow = true;
       let width = this.videoWidth; //- margin.left - margin.right;
       let height = this.videoHeight;
       let svg = d3.select("#VideoEditPanel").append("svg")
@@ -261,13 +267,12 @@ export default {
       _this.importanceCompute_color = d3.interpolate(currentMinColor, currentMaxColor);
       // _this.relevanceScale_linear = d3.scaleLinear([minDRelevance, maxDRelevance], [20, 50])
       _this.totalDurationScale_linear = d3.scaleLinear().domain([0, maxTotalDuration]).range([20, 60]);
-
+      this.drawProgressBar();
 
     },
     addNode() {
       const _this = this;
-      _this.VideoEditPanelShow = true,
-        console.log("yes");
+      _this.VideoEditPanelShow = true;
       d3.select("#VideoEditPanel").select("svg").remove();
       let width = this.videoWidth; //- margin.left - margin.right;
       let height = this.videoHeight;
@@ -322,10 +327,10 @@ export default {
         let y = tagLinearH(boundingBox['top']);
         let w = tagLinearW(boundingBox['width']);
         let h = tagLinearH(boundingBox['height']);
-        let color = "rgba(0,0,250,1)"
-        // console.log(img)
-        let tagId = tags[i]['id'];
-        let tsgRect = tools.drawRect(g, x, y, w, h, 1, "rgba(0,0,250,0.1)", 1, "rgb(0,0,0)", 1, `videoRect${tagId}`, "videoTagRect");
+        let type = tags[i]['type'];
+        let rectColor = _this.tagsColor[type];
+        let tagId =  tags[i]['id'];
+        let tsgRect = tools.drawRect(g, x, y, w, h, 1, rectColor, 10, rectColor,0.1, `videoRect${tagId}`, "videoTagRect","0");
         tsgRect.on('click', function (d) {
           _this.tagsClick(tags[i]);
         })
@@ -344,6 +349,7 @@ export default {
     tagsClick(tag) {
       const _this = this;
       _this.playOrPause = false;
+      _this.videoUrl1 = _this.videoUrl2;
       _this.certenTag = tag;
       _this.$bus.$emit("playOrPause", _this.playOrPause);
       _this.VideoClass['showCertenTag'] = true;
@@ -406,17 +412,19 @@ export default {
         .attr("height", videoHeight)
         .attr("xlink:href", dataURLBack);
 
-      let px = videoWidth / 4;
-      let nx = videoWidth / 4 * 3;
+      let px = videoWidth / 3;
+      let nx = videoWidth / 3 * 2;
+      _this.px = px;
+      _this.nx = nx;
       let rectMagin = 10;
-      tools.drawRect(backg, 0, rectMagin, px - rectMagin, videoHeight - rectMagin * 2, 20, "rgb(172, 232, 229)", 1, "white", 0.5, "tagBackPre", "tagImgBack", '0');
-      tools.drawRect(backg, px, rectMagin, nx - px - rectMagin, videoHeight - rectMagin * 2, 20, "rgb(244, 238, 226)", 1, "white", 0.5, "tagBackCur", "tagImgBack", '0');
-      tools.drawRect(backg, nx, rectMagin, videoWidth - nx - rectMagin, videoHeight - rectMagin * 2, 20, "rgb(254, 224, 172)", 1, "white", 0.5, "tagBackNex", "tagImgBack", '0');
+      tools.drawRect(backg, 0, rectMagin, px - rectMagin, videoHeight - rectMagin * 2, 20, tools.rgb2rgba("rgb(237, 244, 201)"), 1, "white", 0.5, "tagBackPre", "tagImgBack", '0');
+      tools.drawRect(backg, px, rectMagin, nx - px - rectMagin, videoHeight - rectMagin * 2, 20, tools.rgb2rgba("rgb(232, 245, 244)"), 1, "white", 0.5, "tagBackCur", "tagImgBack", '0');
+      tools.drawRect(backg, nx, rectMagin, videoWidth - nx - rectMagin, videoHeight - rectMagin * 2, 20, tools.rgb2rgba("rgb(252, 247, 231)"), 1, "white", 0.5, "tagBackNex", "tagImgBack", '0');
 
-      let maxW = 300;
-      let maxH = 200;
+      let maxW = 320;
+      let maxH = 180;
 
-      let trnX = 600;
+      let trnX = 730;
       let trnY = 100;
 
       let imgW = maxW > width ? width : maxW;
@@ -444,44 +452,98 @@ export default {
     drawConcepts(tag, svg) {
       const _this = this;
 
+      this.fatherSonRelList = [];
       this.relList = [];
+      
       let videoWidth = this.videoWidth; //- margin.left - margin.right;
       let videoHeight = this.videoHeight;
       let conceptsData = this.conceptsData;
       let concepts = tag['concepts'];
       let len = concepts.length;
 
-      let sx = videoWidth / 4;
+      let sx = videoWidth / 3;
       let sy = videoHeight / 3;
 
-      let px = videoWidth / 4;
-      let nx = videoWidth / 4 * 3;
+      let px = videoWidth / 3;
+      let nx = videoWidth / 3 * 2;
 
       let minDRelevance = _this.minDRelevance;
       let maxDRelevance = _this.maxDRelevance;
-      let maxR = 60;
-      let rScale = d3.scaleLinear([minDRelevance, maxDRelevance], [30, maxR]);
+      let maxR = 40;
+      let rScale = d3.scaleLinear([minDRelevance, maxDRelevance], [20, maxR]);
       let rtot = 0;
+      let rtotP = 0;
+      let rtotN = 0;
       let conceptsList = [];
+      let basicBFIdReL = [];
+      let basicNEIdReL = [];
+      let basicBFReL = [];
+      let basicNEReL = [];
       concepts.forEach((element, index) => {
         let curcon = conceptsData.find((d) => { return d['id'] == element; })
         conceptsList.push(curcon);
         let relevanceValue = curcon['attribute']['relevance'];
         let r = rScale(relevanceValue);
         rtot += r;
+        let curId = curcon['id'];
+        let basicRelConIds = curcon['basicRel'];
+        let similarityRelConIds = curcon['similarityRel'];
+        let allRel = [...basicRelConIds,...similarityRelConIds];
+        basicRelConIds.forEach((br)=>{
+          if(parseInt(br)<parseInt(curId)){
+          _this.relList.push([br,curId,0]);
+          }
+          else{
+          _this.relList.push([curId,br,0]);
+          }
+        })
+        similarityRelConIds.forEach((sr)=>{
+          if(parseInt(sr)<parseInt(curId)){
+          _this.relList.push([sr,curId,1]);
+          }
+          else{
+          _this.relList.push([curId,sr,1]);
+          }
+        })
+        allRel.forEach((bE)=>{
+        let relCon = conceptsData.find((d) => { return d['id'] ==bE; })
+
+          if((parseInt(bE)<parseInt(curId))&&(basicBFIdReL.indexOf(bE)==-1)){
+            basicBFIdReL.push(bE);
+            basicBFReL.push(relCon);
+            // 
+            let NrelevanceValue = relCon['attribute']['relevance'];
+            let rN = rScale(NrelevanceValue);
+            rtotN+=rN;
+            // _this.relList.push([])//关系
+          }
+          else if((parseInt(bE)>parseInt(curId))&&(basicNEIdReL.indexOf(bE)==-1)){
+            basicNEIdReL.push(bE);
+            basicNEReL.push(relCon);
+            // _this.relList.push([curId,bE,0]);
+            let PrelevanceValue = relCon['attribute']['relevance'];
+            let rP = rScale(PrelevanceValue);
+            rtotP+=rP;
+          }
+        })
+        similarityRelConIds.forEach((sR)=>{
+
+        })
       })
+
+      // ----------------------------------------------------------------------------------------------
       let gapX = (nx - px - rtot * 2) / (len + 1);
       let preX = px + (gapX);
       let rootConList = [];
       let fatherMap = [];
-      let basicBFReL = [];
-      let basicReL = [];
       conceptsList.forEach((element, index) => {
         let curcon = element;
         let relevanceValue = curcon['attribute']['relevance'];
-
-        let basicReL = curcon['basicReL'];
         let father = curcon['father'][0];
+        if ((father == "-1") && (fatherMap.indexOf(curcon['id']) == -1)) {
+          rootConList.push(curcon);
+          fatherMap.push(curcon['id']);
+        }
         while (father != "-1") {
           let tempCon = conceptsData.find((d) => { return d['id'] == father; })
           father = tempCon['father'][0];
@@ -495,41 +557,110 @@ export default {
         preX = x + r + gapX
         let y = sy + 10;
         _this.drawConcept(svg, curcon, x, y, r);
-        _this.drawConTags(svg, curcon['tags'], px + (x - px) / 2, y + videoHeight / 3);
+        // _this.drawConTags(svg, curcon, px + (x - px) / 2, y + videoHeight / 3);
       });
 
-      _this.drawRootConcept(svg, px, nx, rootConList, concepts);
-      _this.drawRels();
+      // ----------------------------------------------------------------------------------------------      
+      // ----------------------------------------------------------------------------------------------
+      
+      let Plen = basicNEReL.length;
+      let gapPX = (videoWidth - nx - rtotP * 2) / (Plen + 1);
+      let prePX = nx + (gapPX);
+      let rootPConList = [];
+      basicNEReL.forEach((element, index) => {
+        let curcon = element;
+        let relevanceValue = curcon['attribute']['relevance'];
+        let father = curcon['father'][0];
+        while (father != "-1") {
+          let tempCon = conceptsData.find((d) => { return d['id'] == father; })
+          father = tempCon['father'][0];
+          if ((father == "-1") && (fatherMap.indexOf(tempCon['id']) == -1)) {
+            rootPConList.push(tempCon);
+            fatherMap.push(tempCon['id']);
+          }
+        }
+        let r = rScale(relevanceValue);
+        let x = prePX + r;
+        prePX = x + r + gapPX
+        let y = sy + 10;
+        _this.drawConcept(svg, curcon, x, y, r);
+        // _this.drawConTags(svg, curcon, nx + (x - nx), y + videoHeight / 3);
+      });
+
+
+      // ---------------------------------------------------------------------------------------------- 
+      // ----------------------------------------------------------------------------------------------
+      
+      let Nlen = basicBFReL.length;
+      let gapNX = ( px - rtotN * 2) / (Nlen+1);
+      let preNX = 0 + (gapNX);
+      let rootNConList = [];
+      basicBFReL.forEach((element, index) => {
+        let curcon = element;
+        let relevanceValue = curcon['attribute']['relevance'];
+        let father = curcon['father'][0];
+        while (father != "-1") {
+          let tempCon = conceptsData.find((d) => { return d['id'] == father; })
+          father = tempCon['father'][0];
+          if ((father == "-1") && (fatherMap.indexOf(tempCon['id']) == -1)) {
+            rootNConList.push(tempCon);
+            fatherMap.push(tempCon['id']);
+          }
+        }
+        let r = rScale(relevanceValue);
+        let x = preNX + r;
+        preNX = x + r + gapNX
+        let y = sy + 10;
+        _this.drawConcept(svg, curcon, x, y, r);
+        // _this.drawConTags(svg, curcon, 0 + (x), y + videoHeight / 3);
+      });
+      let allCon = [...concepts,...basicBFIdReL,...basicNEIdReL]
+      _this.drawRootConcept(svg, px, nx, rootConList, allCon);
+      _this.drawRootConcept(svg, nx, videoWidth, rootPConList, allCon);
+      _this.drawRootConcept(svg,  0, px, rootNConList, allCon);
+      _this.drawFatherSonRels();
+
+      // ----------------------------------------------------------------------------------------------
     },
 
     drawRootConcept(svg, px, nx, rootConList, conceptsList) {
       const _this = this;
-      let gapX = 50;
+      let gapX = 20;
       let w = (nx - px - gapX * (rootConList.length + 1)) / (rootConList.length);
       let h = 60;
       let rx = 10;
-      let stroke = 'rgb(143, 219, 210)'
-      let fill = "rgb(143, 219, 210)";
+      let stroke = 'rgb(10, 105, 173)'
+      let fill = "rgb(10, 105, 173)";
       let strokeWidth = 1;
       let preX = px;
-      let shaColo = 'white'
+      let shaColo = 'white';
+      let timeDur = 0;
+      rootConList.forEach((d, i) => {
+        timeDur+=d['totalDuration'];
+      })
+      let widthLinear = d3.scaleLinear([0, timeDur], [0, (nx-px) - gapX * (rootConList.length + 1)]);
+
       rootConList.forEach((d, i) => {
         let cId = d['id'];
-        if (conceptsList.indexOf(cId) == -1) {
-          let x = px + i * (w + gapX) + gapX;
-          let y = 20;
-          let rect = tools.drawRect(svg, x, y, w, h, rx, fill, strokeWidth, stroke, 1, `rootCon_${cId}`, 'rootCon', '0');
+        let curTimeDur = d['totalDuration'];
+        let cW = widthLinear(curTimeDur);
+          let sonIdList = d['son'];
+        // if (conceptsList.indexOf(cId) == -1) {&&
+          // if(tools.hasDuplicates(conceptsList,sonIdList)){
+          let x = px +gapX;
+          px += cW + gapX;
+          let y = 40;
+          let rect = tools.drawRect(svg, x, y, cW, h, rx, fill, strokeWidth, stroke, 1, `rootCon_${cId}`, 'rootCon', '0');
           // rect.style("filter", "url(#outsideS)");
           rect.style("filter", "drop-shadow(4px 10px 8px rgb(175, 171, 171))");
           let tx = x + w / 2;
-          let ty = y + h;
+          let ty = y +h;
           let txts = d['name'];
           let txtRet = tools.drawTxt(svg, tx, ty, txts, "black", 20, `entRootText_${cId}`);
-          txtRet[0].attr("transform", `translate(-${txtRet[1]['width'] / 2},-${txtRet[1]['height'] / 2})`);
+          txtRet[0].attr("transform", `translate(-${txtRet[1]['width'] / 2},-${txtRet[1]['height']})`);
 
           let sonPx = x;
-          let sonNx = x + w;
-          let sonIdList = d['son'];
+          let sonNx = x + cW;
           let sonList = [];
           sonIdList.forEach((ele) => {
             let cson = _this.conceptsData.find((c) => { return c['id'] == ele; });
@@ -537,41 +668,46 @@ export default {
           })
           let py = y + h + 10;
           if ((sonList.length > 0)) {
-            console.log(sonList)
-            _this.drawSonConcept(svg, sonPx, sonNx, sonList, py, conceptsList);
+            _this.drawSonConcept(svg, sonPx, sonNx,curTimeDur, sonList, py, conceptsList);
           }
-        }
+        // }
 
       })
     },
-    drawSonConcept(svg, px, nx, sonConList, layY, conceptsList) {
+    drawSonConcept(svg, px, nx,timeDur, sonConList, layY, conceptsList) {
       const _this = this;
       let gapX = 10;
       let w = (nx - px - gapX * (sonConList.length + 1)) / (sonConList.length);
-      let h = 30;
+      let h = 35;
       let rx = 10;
-      let stroke = 'rgb(183, 229, 220)'
-      let fill = "rgb(183, 229, 220)";
+      let stroke = 'rgb(171, 208, 216)'
+      let fill = "rgb(171, 208, 216)";
       let strokeWidth = 1;
       let preX = px;
+      let widthLinear = d3.scaleLinear([0, timeDur], [0, (nx-px) - gapX * (sonConList.length + 1)]);
       sonConList.forEach((d, i) => {
         let cId = d['id'];
-        if (conceptsList.indexOf(cId) == -1) {
-          let x = px + i * (w + gapX) + gapX;
+        
+        let curTimeDur = d['totalDuration'];
+        let sonIdList = d['son'];
+        if ((tools.hasDuplicates(conceptsList,sonIdList))) {
+          let cW = widthLinear(curTimeDur);
+          let x = px +gapX;
+          px += cW + gapX;
           let y = layY;
-          let rect = tools.drawRect(svg, x, y, w, h, rx, fill, strokeWidth, stroke, 1, `rootCon_${cId}`, 'rootCon', '0');
+          let rect = tools.drawRect(svg, x, y, cW, h, rx, fill, strokeWidth, stroke, 1, `rootCon_${cId}`, 'rootCon', '0');
 
           rect.style("filter", "drop-shadow(4px 10px 8px rgb(175, 171, 171))");
-          let tx = x + w / 2;
-          let ty = y + h;
+          let tx = x + cW / 2;
+          let ty = y + h/2;
           let txts = d['name'];
-          let txtRet = tools.drawTxt(svg, tx, ty, txts, "black", 20, `entSonText_${cId}`);
-          txtRet[0].attr("transform", `translate(-${txtRet[1]['width'] / 2},-${txtRet[1]['height'] / 2})`);
+          tools.drawTxts(svg, tx, ty, w*0.8, txts, "black", 20, `entText_${cId}`);
+          // let txtRet = tools.drawTxt(svg, tx, ty, txts, "black", 20, `entSonText_${cId}`);
+          // txtRet[0].attr("transform", `translate(-${txtRet[1]['width'] / 2},-${txtRet[1]['height'] / 2})`);
 
 
           let sonPx = x;
-          let sonNx = x + w;
-          let sonIdList = d['son'];
+          let sonNx = x + cW;
           let sonList = [];
           sonIdList.forEach((ele) => {
             let cson = _this.conceptsData.find((c) => { return c['id'] == ele; });
@@ -579,36 +715,103 @@ export default {
           })
           let py = y + h + 10;
           if ((sonList.length > 0)) {
-            _this.drawSonConcept(svg, sonPx, sonNx, sonList, py, conceptsList);
+            _this.drawSonConcept(svg, sonPx, sonNx,curTimeDur, sonList, py, conceptsList);
           }
         }
       })
 
     },
-    drawRels() {
+    drawFatherSonRels() {
       const _this = this;
+      let fatherSonRelList = this.fatherSonRelList;
       let relList = this.relList;
-      relList.forEach((e) => {
-        _this.drawRel(e[0], e[1]);
+      
+      relList.forEach((r) => {
+        _this.drawRel(...r);
+      })
+      fatherSonRelList.forEach((e) => {
+        _this.drawFatherSonRel(e[0], e[1]);
       })
     },
-    drawRel(s, t) {
+    drawRel(s, t,type) {
       const _this = this;
       let g = this.relG;
-      let source = document.getElementById(s);
-      let target = document.getElementById(t);
+      let source = document.getElementById(`entCircle_${s}`);
+      let target = document.getElementById(`entCircle_${t}`);
+      const path = d3.path();
+
+      let conceptsData = this.conceptsData;
+      let sCon =conceptsData.find((d) => { return d['id'] == s; })
+      let tCon =conceptsData.find((d) => { return d['id'] == t; });
+
       var sBbox = source.getBBox();
       var tBbox = target.getBBox();
       let sw = sBbox.width;
       let sh = sBbox.height;
-      let sx = sBbox.x;
-      let sy = sBbox.y + sh / 2;
+      // let sx = sBbox.x;
+      let sy = sBbox.y + sh+20;
+      let sx = sBbox.x+sw/2;
+
+      let th = tBbox.height;
+      let tw = tBbox.width;
+      let tx = tBbox.x+tw/2;
+      let ty = tBbox.y + th+20;
+      let cny = (sy+ty)/2;
+
+      let lineColor = 'rgb(107, 178, 168)';
+      if (type == 0) {
+        let hScale_linear = d3.scaleLinear([0, _this.videoWidth / 3], [0, 100])
+        cny += hScale_linear(tx - sx);
+        let midX1 = sx + (tx - sx) / 4;
+        let midX2 = tx - (tx - sx) / 4;
+        path.moveTo(sx, sy);
+        path.bezierCurveTo(midX1, cny, midX2, cny, tx, ty);
+        tools.drawTimeLine(g, path, lineColor, 2, '', `BarelLine_${s}_${t}`, 'relLine');
+      }
+      else if(type==1){
+        let hScale_linear = d3.scaleLinear([0, _this.videoWidth / 3], [0, 70])
+        cny += hScale_linear(tx - sx);
+        let midX1 = sx + (tx - sx) / 4;
+        let midX2 = tx - (tx - sx) / 4;
+        path.moveTo(sx, sy);
+        path.lineTo(sx,cny);
+        path.arcTo(sx+10, cny+10,sx+20, cny+20,1);
+        path.lineTo(tx,cny);
+        path.lineTo(tx,ty);
+        // path.bezierCurveTo(midX1, cny, midX2, cny, tx, ty);
+        tools.drawTimeLine(g, path, lineColor, 2, '', `SirelLine_${s}_${t}`, 'relLine');
+      }
+    },
+    drawFatherSonRel(s, t) {
+      const _this = this;
+      let g = this.relG;
+      let source = document.getElementById(s);
+      let target = document.getElementById(t);
+
+      let conceptsData = this.conceptsData;
+      let sCon =conceptsData.find((d) => { return d['id'] == s.split("_")[1]; })
+      let tCon =conceptsData.find((d) => { return d['id'] == t.split("_")[1]; });
+
+      var sBbox = source.getBBox();
+      var tBbox = target.getBBox();
+      // let sw = sBbox.width;
+      let sh = sBbox.height;
+      // let sx = sBbox.x;
+      let sy = sBbox.y + sh-10;
 
       let th = tBbox.height;
       let tw = tBbox.width;
       let tx = tBbox.x;
       let ty = tBbox.y + th / 2;
 
+      let StimeDur = sCon['totalDuration'];
+      let TtimeDur = tCon['totalDuration'];
+      let StimeStart = sCon['time'][0];
+      let TtimeStart = tCon['time'][0];
+      let startTime = tools.time2seconds(TtimeStart) - tools.time2seconds(StimeStart)
+      let widthLinear = d3.scaleLinear([0, StimeDur], [0, sBbox.width]);
+      let sw = widthLinear(TtimeDur);
+      let sx = sBbox.x+widthLinear(startTime);
       var defs = g.append("defs");
 
       let grad = defs.append("linearGradient")
@@ -619,10 +822,14 @@ export default {
 
       grad.append("stop")
         .attr("offset", "0%")
-        .style("stop-color", "rgb(242, 217, 135)")
+        .style("stop-color", "rgb(150, 150, 150)")
+      grad.append("stop")
+        .attr("offset", "80%")
+        .style("stop-color", "rgb(150, 150, 150)")
+        .style("stop-opacity", "0.1")
       grad.append("stop")
         .attr("offset", "100%")
-        .style("stop-color", "rgb(242, 217, 135)")
+        .style("stop-color", "rgb(150, 150, 150)")
         .style("stop-opacity", "0")
 
       let points = [[sx, sy], [sx + sw, sy], [tx + tw, ty], [tx, ty]]
@@ -635,69 +842,172 @@ export default {
       let compute_color = _this.importanceCompute_color;
       let oData = _this.conceptsData;
       let importanceValue = con['attribute']['importance'];
-
+      let height = _this.videoHeight;
       let cy = y;
+      
+      let px = this.px
+      let nx = this.px
       let totalDuration = _this.totalDuration;
       let circleColor = compute_color(color_linear(importanceValue));
-      tools.drawCircle(svg, x, cy, r + 40, circleColor, 0, "white", 1, "entCircle", `entCircle_${con['id']}`);
-      tools.drawCircle(svg, x, cy, r, circleColor, 1, "white", 1, "entCircle", `nEntCircle_${con['id']}`);
+      
+      tools.drawCircle(svg, x, cy, r + 20, "rgb(224, 250, 237)", 1, "white", 1, "entCircle", `entCircle_${con['id']}`);
+      this.drawConRelConEnt(svg, con, x, y, r+10);
+      let entCircle = tools.drawCircle(svg, x, cy, r, circleColor, 1, "white", 0, "entCircle", `nEntCircle_${con['id']}`);
+      entCircle.on("click",(d)=>{
+        _this.drawConTags(svg, con, px+100,y+150,height/2-50);
+      })
       let tx = x;
-      let ty = y + r + 100;
+      let ty = y + r*3+150;
       let txts = con['name'];
-      let txtRet = tools.drawTxt(svg, tx, ty, txts, "black", 20, `entText_${con['id']}`);
-      txtRet[0].attr("transform", `translate(-${txtRet[1]['width'] / 2},-${txtRet[1]['height'] / 2})`)
+      // let txtRet = tools.drawTxt(svg, tx, ty, txts, "black", 20, `entText_${con['id']}`);
+      tools.drawTxts(svg, tx, ty, r*4, txts, "black", 20, `entText_${con['id']}`);
+      // txtRet[0].attr("transform", `translate(-${txtRet[1]['width'] / 2},-${txtRet[1]['height'] / 2})`)
       let serTags = con['serTags'];
-      this.drawSerTags(svg, serTags, x, y, r, circleColor, con['id']);
-      let father = `rootCon_${con['father'][0]}`;
-      _this.relList.push([father, `entCircle_${con['id']}`]);
+      this.drawSerTags(svg, serTags, x, y, r, circleColor, con);
+      let fatherId = con['father'][0];
+      if(fatherId!="-1"){
+      let father = `rootCon_${fatherId}`;
+      _this.fatherSonRelList.push([father, `entCircle_${con['id']}`]);
+        }
+        else{
+          _this.fatherSonRelList.push([`rootCon_${con['id']}`, `entCircle_${con['id']}`]);
+
+        }
     },
-    drawConTags(svg, tags, x, y) {
+    drawConRelConEnt(svg,con,x,y,r,color){
+      const _this = this;
+      let conceptsData = this.conceptsData;
+      let rel = [...con['basicRel'],...con['similarityRel']];
+      
+      let timeLinear = d3.scaleLinear([0, _this.videoDur], [0, Math.PI*2]);
+      let color_linear = _this.importanceColor_linear;
+      let compute_color = d3.interpolate("rgb(146, 211, 203)", "rgb(107, 178, 168)");
+      let outsideR = 0;
+      let conR = 10;
 
+      let curConTime = con['time'];
+      let curStimerDot = tools.time2seconds(curConTime[0]);
+      let curEtimerDot = tools.time2seconds(curConTime[1]);
+      let STheta = timeLinear(curStimerDot);
+      let ETheta = timeLinear(curEtimerDot);
+      
+      ETheta =STheta +((((ETheta-STheta)*3)<0.3)?0.3:(ETheta-STheta)*3);
+      timeLinear = d3.scaleLinear([0, _this.videoDur ], [0, Math.PI*2- (ETheta-STheta)]);
+      let rlen = r+outsideR;
+      // let sx = x + rlen * Math.sin(STheta);
+      // let sy = y - rlen * Math.cos(ETheta);  
+      let importanceValue = con['attribute']['importance'];
+      let circleColor = compute_color(color_linear(importanceValue));
+      // tools.drawCircle(svg, cx, cy, 7, "red", 1, "white", 1, "circle", `relCon_${con['id']}_${curcon['id']}`);
+        var dataset = { startAngle: STheta, endAngle: ETheta }; //创建一个弧生成器
+        var arcPath = d3.arc()
+          .innerRadius(rlen-outsideR)
+          .outerRadius(rlen+outsideR);
+        var pathArc = arcPath(dataset);
+                      // (svg, x, y, arcPath, stroke, fill, className, idName, stroke_dasharray, width)
+        tools.drawArc(svg, x, y, pathArc, circleColor, circleColor, "relCon",`relCon_${con['id']}_${con['id']}`, "0", 10) ;
+
+
+      rel.forEach((relCon)=>{
+        let curcon =conceptsData.find((d) => { return d['id'] == relCon; })
+        let curConTime = curcon['time'];
+        let curtimerDot = (tools.time2seconds(curConTime[0])+tools.time2seconds(curConTime[1]))/2;
+        let curTheta = timeLinear(curtimerDot);
+        if ((curTheta>STheta)&&(curTheta<ETheta)){
+          curTheta+=0.1+(ETheta-STheta);
+        }
+        let cx = x + rlen * Math.sin(curTheta);
+        let cy = y - rlen * Math.cos(curTheta);  
+        let importanceValue = curcon['attribute']['importance'];
+        let circleColor = compute_color(color_linear(importanceValue));
+        tools.drawCircle(svg, cx, cy, 7, circleColor, 1, "white", 0, "circle", `relCon_${con['id']}_${curcon['id']}`);
+      })
+    },
+    drawConTags(svg, con, x, y,h) {
+      let tags = con['tags'];
+      let cId = con['id'];
       let tagsData = this.tagsData;
-      let sevR = 40;
-      tags.forEach((ele, ind) => {
+      let tagOdata = [];
+      let r = 25;
+      let stepr = 10;
+      let rTot = 0;
+      let waiColor = "rgb(107, 107, 107)";
 
+      svg.selectAll('.conTags').remove();
+      tags.forEach((ele, ind) => {
         let tag = tagsData.find(function (d) { return d['id'] == ele });
+        tagOdata.push(tag);
+        let serveConcepts = tag['serveConcepts'];
+        let len = serveConcepts.length;
+        let rNum = (len-1)<0?0:(len-1);
+        let cr = r+stepr*(rNum);
+        rTot+=cr;
+      })
+      let sevR = (h-rTot*2)/(tags.length+1);
+      let sY = y+sevR-15;
+      let tY = y +h-sevR+15;
+
+      let points = tools.calcTriangle(x, sY, 4);
+      let sEnt = tools.drawPolygon(svg, points, `conTagsSourceIcon${cId}`, 1, waiColor, waiColor,"conTags");
+      sEnt.style("transform-origin", "center")
+        .style("transform-box", "fill-box")
+        .attr("transform", `rotate(${180})`);
+      tools.drawCircle(svg, x, tY, 4, waiColor, 1, "white", 0, "conTags", `conTagsTargetIcon${cId}`);
+
+      let preY = y+sevR;
+      let px = this.px; 
+      let jiantouPath = d3.path();
+      jiantouPath.moveTo(x,sY);
+      jiantouPath.lineTo(x,tY);
+      tools.drawTimeLine(svg, jiantouPath, waiColor, 1.5, '4,5', `conTags${con['id']}`, 'conTags');
+
+      tagOdata.forEach((tag, ind) => {
+        let ele = tag['id'];
         let type = tag['type'];
+        let serveConcepts = tag['serveConcepts'];
+        let len = serveConcepts.length;
         let points = [];
         let stroke = 'rgb(175, 195, 230)';
         let fill = 'rgb(175, 195, 230)';
 
         let cx = x;
-        let cy = y + (sevR + 20) * (ind);
+        let rNum = (len-1)<0?0:(len-1);
+        let cy = preY +r+stepr*(rNum);
 
-        if (type == 'equation') {
-          points = tools.calcTriangle(cx, cy, sevR)
+        preY = cy+r+stepr*(rNum)+sevR;
+        let cirFill = 'rgb(123, 150, 196)'
+        for(let i=len-1;i>=0;i--){
+          tools.drawCircle(svg, cx, cy, r+stepr*i, cirFill, 1, "grey", 3, 'conTags',`conTagsCir_${cId}_${ele}_${i}`)
         }
-        else if (type == 'text') {
-          points = tools.calcRect(cx, cy, sevR)
-        }
-        else if (type == 'text') {
-          points = tools.calcTriangle(cx, cy, sevR)
-        }
-        else if (type == 'text') {
-          points = tools.calcTriangle(cx, cy, sevR)
-        }
-        let tagsEnt = tools.drawPolygon(svg, points, `conTags${ele}`, 10, stroke, fill);
-
-
+        // let tagsEnt = tools.drawPolygon(svg, points, `conTags${ele}`, 10, stroke, fill);
+        let imgUrl = require(`@/assets/img/tagsIcon/tag_${type}.png`);
+        // tools.drawCircle(svg, cx, cy, r, fill, 1, stroke, 1, 'circle',' idName')
+        // let tagsEnt = tools.drawPolygon(svg, points, `conTags${ele}`, 0, stroke, fill);
+        let tagsEnt = tools.drawImage(svg, 30, 30,cx,cy, imgUrl,`conTags_${cId}_${ele}`,'conTags');
       })
     },
-    drawSerTags(svg, tags, x, y, r, color, id) {
+    drawSerTags(svg, tags, x, y, r, color, con) {
       const _this = this;
       let tagsData = this.tagsData;
       let len = tags.length;
-
-      let sevR = 20;
+      let id = con['id']
+      let sevR = 15;
+      let outsideR = 30
       let jiantouPath = d3.path();
-      let sTheta = -Math.PI / 2 - Math.PI / 6;
-      let tTheta = Math.PI + Math.PI / 6;
-      let waiColor = "rgb(255,100,100)"
-      jiantouPath.arc(x, y, r + 60, sTheta, tTheta)//Math.PI * 2-Math.PI/2-Math.PI/2);
+      let sTheta = -Math.PI / 2 //- Math.PI / 6;
+      let tTheta = Math.PI + Math.PI / 5;
+      let waiColor = "rgb(107, 107, 107)";
 
-      tools.drawTimeLine(svg, jiantouPath, waiColor, 3, '9,5', 'midArc ', 'midArc ');
 
-      let rlen = r + 60;
+      let timeDur = con['time'];
+      // 0, this.videoDur
+      // 
+      jiantouPath.arc(x, y, r + outsideR, sTheta, tTheta)//Math.PI * 2-Math.PI/2-Math.PI/2);
+      tools.drawTimeLine(svg, jiantouPath, waiColor, 1.5, '4,5', 'midArc ', 'midArc ');
+      let thetaLinear = d3.scaleLinear([tools.time2seconds(timeDur[0]),tools.time2seconds(timeDur[1])], [sTheta+ Math.PI / 2, tTheta+ Math.PI / 2]);
+
+
+      let rlen = r + outsideR;
       let csx = x + rlen * Math.sin(sTheta + Math.PI / 2);
       let csy = y - rlen * Math.cos(sTheta + Math.PI / 2);
 
@@ -705,55 +1015,105 @@ export default {
       let cty = y - rlen * Math.cos(tTheta + Math.PI / 2);
 
 
-      let points = tools.calcTriangle(csx, csy, 8);
+      let points = tools.calcTriangle(csx, csy, 4);
       let sEnt = tools.drawPolygon(svg, points, `conSourceIcon${id}`, 1, waiColor, waiColor);
       sEnt.style("transform-origin", "center")
         .style("transform-box", "fill-box")
         .attr("transform", `rotate(${180 * sTheta / Math.PI + 66})`);
-      tools.drawCircle(svg, ctx, cty, 7, waiColor, 1, "white", 1, "circle", `conTargetIcon${id}`);
+      tools.drawCircle(svg, ctx, cty, 4, waiColor, 1, "white", 1, "circle", `conTargetIcon${id}`);
 
-      // let typeArcScale_linear = d3.scaleLinear([0, typeTotalDur], [0, Math.PI * 2]);
+      let ptheta = sTheta+Math.PI/2;
       tags.forEach((ele, ind) => {
         let tag = tagsData.find(function (d) { return d['id'] == ele });
         let type = tag['type'];
+        let timeDot = (tag['timeDur'][0]+tag['timeDur'][1])/2;
         let points = [];
         let stroke = color//'rgb(175, 195, 230)';
         let fill = color//'rgb(175, 195, 230)';
-        let rlen = r + 62;
-        let stepR = Math.PI / 2;
-        let curTheta = stepR * (ind + 0.1);
+        let rlen = r + outsideR;
+        let stepR = Math.PI / 6;
+        let curTheta = stepR * (ind + 1);//thetaLinear(timeDot)/
+        // tTheta = curTheta;
+        let minGapTheta = Math.PI/6;
+        // if((Math.abs(curTheta-ptheta)<minGapTheta))curTheta=ptheta + minGapTheta;
+        ptheta = curTheta;
         let cx = x + rlen * Math.sin(curTheta);
         let cy = y - rlen * Math.cos(curTheta);
-
-        // let endAnglet = typeStartR + 1 * typeStepR
-        // var dataset = { startAngle: typeStartR, endAngle: endAnglet }; //创建一个弧生成器
-        // typeStartR = endAnglet;
-        // var arcPath = d3.arc()
-        //   .innerRadius(r + 10)
-        //   .outerRadius(r + 25);
-        // var pathArc = arcPath(dataset);
-        // _this.drawArc(svg, x, y - r / 2, pathArc, color, color, 'type f' + data['id'] + " t" + i);
-
-
-        if (type == 'equation') {
-          points = tools.calcTriangle(cx, cy, sevR)
-        }
-        else if (type == 'text') {
-          points = tools.calcRect(cx, cy, sevR)
-        }
-        else if (type == 'text') {
-          points = tools.calcTriangle(cx, cy, sevR)
-        }
-        else if (type == 'text') {
-          points = tools.calcTriangle(cx, cy, sevR)
-        }
+        let imgUrl = require(`@/assets/img/tagsIcon/tag_${type}.png`);
         // tools.drawCircle(svg, cx, cy, r, fill, 1, stroke, 1, 'circle',' idName')
-        let tagsEnt = tools.drawPolygon(svg, points, `conTags${ele}`, 10, stroke, fill);
+        // let tagsEnt = tools.drawPolygon(svg, points, `conTags${ele}`, 0, stroke, fill);
+        let tagsEnt = tools.drawImage(svg, 20, 20,cx,cy, imgUrl,`conSerTags_${con['id']}_${ele}`,'serConTags');
+
+        // console.log('tg',timeDot,tag,tools.time2seconds(timeDur[0]),tools.time2seconds(timeDur[1]),curTheta,sTheta,tTheta)
         tagsEnt
           .style("transform-origin", "center")
           .style("transform-box", "fill-box")
           .attr("transform", `rotate(${180 * curTheta / Math.PI})`)
       })
+
+    },
+    drawProgressBar(){
+      let width = this.$refs.progressBar.offsetWidth;
+      let height = this.$refs.progressBar.offsetHeight;
+      let data = this.conceptsData;
+      let svg = d3.select("#progressBar").append("svg")
+        .attr("id","progressBarSvg")
+        .attr("width", width)
+        .attr("height", height);
+      let inpPath = d3.path();
+      let videoDur = this.videoDur;
+      let xLinear = d3.scaleLinear([0, videoDur], [0, width]);
+      inpPath.moveTo(0,height);
+      let lineData = [[0,height]]
+      // lineData.push([0,0])
+
+
+      let inPColor = 'grey';
+      let maxValue = Math.max.apply(Math, data.map(function (d) { return d['attribute']['importance']; }))
+
+      let hLinear =  d3.scaleLinear([0, maxValue], [10, height]);
+      data.forEach((con,ind)=>{
+        let time = con['time'];
+        let timeDot = (tools.time2seconds(time[0])+tools.time2seconds(time[0]))/2;
+        let inpValue = con['attribute']['importance'];
+        lineData.push([xLinear(timeDot),height - hLinear(inpValue)])
+      });
+      lineData.push([width, height]);
+        let curve_generator = d3.line()
+          .x((d) => d[0])
+          .y((d) => d[1])
+          .curve(d3.curveBundle);
+        // .curve(d3.curveCatmullRom  )
+        // .curve(d3.curveBasis)
+
+        let p = tools.drawTimeLine(svg, curve_generator(lineData), inPColor, 1, '', `inpLine`, 'inpLine');
+        p.attr("fill","rgb(43, 124, 182)")
+      console.log("da",data);
+      let axisDur = 120;
+      let stepDur = 12;
+      let xIndex = 0;
+      let py = 20;
+      while((xIndex*stepDur)<videoDur){
+        let cx = xLinear(xIndex*stepDur);
+        xIndex+=1;
+        let cy = (py==15)?20:15;
+        let w = 1;
+        py = cy;
+        let path = d3.path();
+        path.moveTo(cx,0);
+        path.lineTo(cx,cy);
+        let lineColor="grey";
+        let textColor = "grey";
+        if((stepDur*xIndex)%axisDur==0){
+          w=2;
+          cy+=3;
+          let name = tools.seconds2time(xIndex*stepDur,1);
+          let axisTxt = tools.drawTxt(svg, cx, 20, name, textColor, 16, `axisLtxts${xIndex}`);
+          axisTxt[0].attr("transform", `translate(-${axisTxt[1]['width'] / 2},${axisTxt[1]['height']})`);
+        }
+        tools.drawTimeLine(svg, path, lineColor, w, '', `axisLine_${xIndex}`, 'axisLine');
+      }
+      console.log('ss',videoDur);
     },
     getVideoTime(val) {
       const _this = this;
@@ -773,7 +1133,7 @@ export default {
       _this.addTag(val);
 
       d3.select("#progressBar")
-        .attr("style", `background: linear-gradient(90deg, rgba(148, 213, 213,0.5) ${mid}%,rgb(231, 247, 243) ${mid}%) !important;  width: ${widths}`)
+        .attr("style", `background: linear-gradient(90deg, rgba(43, 124, 182,0.5) ${mid}%,rgb(234, 234, 234) ${mid}%) !important;  width: ${widths}`)
       this.$emit("videoTime", val);
     },
     processBarCli(e) {
@@ -955,11 +1315,18 @@ export default {
       _this.ketText = ketText;
       _this.drawrootTopicLine();
     });
+    
+    this.$bus.$on('tagsColor', (val) => {
+      _this.tagsColor = val;
+    });
     this.$bus.$on('certenTag', (val) => {
       _this.certenTag = val;
     });
     this.$bus.$on('relData', (val) => {
       _this.relData = val;
+    });
+    this.$bus.$on('videoTotalDur', (val) => {
+      _this.videoDur = val;
     });
     this.$nextTick(() => {
       _this.videoWidth = this.$refs.videoDiv.offsetWidth

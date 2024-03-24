@@ -3,7 +3,7 @@
 
 <template>
   <div class="externalPanel">
-    <div class="panelHead">SupportPanel</div>
+    <!-- <div class="panelHead">SupportPanel</div> -->
     <div id="externalPanelBody" class="panelBody" ref="externalDiv">
       <div class="chatWin">
         <ChatWindow></ChatWindow>
@@ -31,9 +31,12 @@ export default {
       zoomVideoWidth: 640,
       zoomVideoHeight: 360,
       videoG: '',
-      tagVideoSize: [640, 360],
+      // tagVideoSize: [640, 360],
+      
+      tagVideoSize: [2540, 1440],
       tagsList: [],
       certenTag:'',
+      tagsColor:''
     };
   },
   watch: {
@@ -102,6 +105,7 @@ export default {
       let width = this.width;
       let height = this.zoomVideoHeight * this.width / this.zoomVideoWidth;
       let tags = _this.tagsList;
+      let tagsColor = _this.tagsColor;
       let tagVideoSize = this.tagVideoSize;
       let tagLinearW = d3.scaleLinear([0, tagVideoSize[0]], [0, width]);
       let tagLinearH = d3.scaleLinear([0, tagVideoSize[1]], [0, height]);
@@ -111,10 +115,11 @@ export default {
         let y = tagLinearH(boundingBox['top']);
         let w = tagLinearW(boundingBox['width']);
         let h = tagLinearH(boundingBox['height']);
-        let color = "rgba(0,0,250,1)"
+        let type = tags[i]["type"];
+        let color = tagsColor[type];
         // console.log(img)
         let tagId = tags[i]['id'];
-        let tsgRect = tools.drawRect(g, x, y, w, h, 1, "rgba(0,0,250,0.1)", 1, "rgb(0,0,0)", 1, `videoRect${tagId}`, "videoTagRect");
+        let tsgRect = tools.drawRect(g, x, y, w, h, 1, color, 1, color, 0.1, `videoRect${tagId}`, "videoTagRect");
         tsgRect.on('click', function (d) {
           _this.tagsClick(tags[i]);
         })
@@ -143,6 +148,9 @@ export default {
     this.$bus.$on('tagsList', (val) => {
 
       _this.tagsList = val;
+    });
+    this.$bus.$on('tagsColor', (val) => {
+      _this.tagsColor = val;
     });
   },
   // beforeDestroy() {
