@@ -119,6 +119,7 @@ export default {
       },
       videoDur:672,
       barType: "Teaching",
+      curConList:[]
     };
   },
   watch: {
@@ -129,6 +130,8 @@ export default {
       this.$bus.$emit("showGraph", this.showGraph);
       this.$bus.$emit('tagsColor',this.tagsColor);
       this.$bus.$emit("videoDurs", this.videoDur);
+      this.$bus.$emit("curPPT", 100);
+      this.$bus.$emit("curConList", this.curConList);
       this.$bus.$emit("showExternal", this.showExternal);
     },
     toolState(val) {
@@ -202,6 +205,9 @@ export default {
     this.$bus.$emit('tagsColor',_this.tagsColor);
     this.$bus.$on('toolState', (val) => {
       _this.toolState = val;
+    });
+    this.$bus.$on('curCon', (val) => {
+      _this.curConList = val;
     });
     // this.getData();
   },

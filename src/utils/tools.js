@@ -1,3 +1,4 @@
+import { appendFile } from "fs";
 import { createWorker, createScheduler, RecognizeResult, PSM, OEM } from "./tesseract.min.js";
 
 import * as d3 from 'd3'
@@ -35,9 +36,11 @@ function  drawTxts(svg, x, y, width, txts, fill, fontsize = 12, idN) {
   let preIdN = 0;
   let pretext = '';
   txts = txts.split(" ");
+  let g = svg.append("g")
+      .attr("id", `${idN}`)
   for (let t = 0; t < txts.length; t++) {
     pretext +=" "+ txts[t];
-    let txt = svg.append("text")
+    let txt = g.append("text")
       .attr("y", ty)
       .attr("x", tx)
       .attr("id", `${idN}_${t}`)
@@ -150,6 +153,10 @@ function drawArc(svg, x, y, arcPath, stroke, fill, className, idName, stroke_das
     .attr("fill", fill);
   return arc;
 }
+
+function sleep(delay){
+  return new Promise(res=>setTimeout(res,delay));
+};
 
 function time2seconds(time) {
   let lst = time.split(":");
@@ -274,5 +281,8 @@ export default {
   },
   drawImage:(svg, w, h,x,y, url, idName,className)=>{
     return drawImage(svg, w, h,x,y, url, idName,className);
+  },
+  sleep:(d)=>{
+    return sleep(d);
   }
 }

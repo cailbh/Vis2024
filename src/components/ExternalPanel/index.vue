@@ -31,9 +31,9 @@ export default {
       zoomVideoWidth: 640,
       zoomVideoHeight: 360,
       videoG: '',
-      // tagVideoSize: [640, 360],
+      tagVideoSize: [640, 360],
       
-      tagVideoSize: [2540, 1440],
+      // tagVideoSize: [2540, 1440],
       tagsList: [],
       certenTag:'',
       tagsColor:''
@@ -117,7 +117,6 @@ export default {
         let h = tagLinearH(boundingBox['height']);
         let type = tags[i]["type"];
         let color = tagsColor[type];
-        // console.log(img)
         let tagId = tags[i]['id'];
         let tsgRect = tools.drawRect(g, x, y, w, h, 1, color, 1, color, 0.1, `videoRect${tagId}`, "videoTagRect");
         tsgRect.on('click', function (d) {
