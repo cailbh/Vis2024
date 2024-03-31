@@ -96,7 +96,7 @@ body {
   /* float: left; */
   /* width: 50%;
     height: 70%; */
-  width: 100%;
+  width: 85%;
   height: 100%;
   position: relative;
   
@@ -122,26 +122,27 @@ body {
   height: 55%;
 }
 
-#externalPanel {
+#externalContainer {
   scrollbar-width: none;
   float: left;
   width: 22%;
-  height: calc(78% + 0px);
+  height: calc(25% + 0px);
   position: absolute;
-  right: 0px;
-  top: calc(22% - 0px);
+  right: calc(18% + 7px);
+  top: calc(65% - 0px);
+  z-index: 100;
+  background: rgba(0,0,0,0);
 }
 
 #graphContainer {
-
   scrollbar-width: none;
   float: left;
-  width: calc(100% - 0px);
+  width: calc(85% - 6px);
   height: calc(22% - 0px);
   position: absolute;
   top: 0px;
   z-index: 1000;
-  left: 0px;
+  left: 3px;
   background-color: rgb(152, 152, 152);
 }
 

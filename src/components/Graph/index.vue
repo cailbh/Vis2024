@@ -6,7 +6,7 @@
     <div id="graphPanel" class="panelBody" ref="pptImages">
       <div class="images">
         <div v-for="(item, index) in pptInfo" :key="index" class="image-middle">
-          <el-card shadow="hover" :body-style="{ padding: '10px' }">
+          <el-card shadow="hover" :body-style="{ padding: '0px' }">
             <!-- //添加鼠标点击或悬浮图片放大功能 -->
             <el-popover
             placement="bottom"
@@ -45,7 +45,6 @@ export default {
   props: ["videoTime"],
   data() {
     return {
-
       width: "",
       height: "",
       margin: { top: 15, right: 5, bottom: 5, left: 5 },
@@ -53,6 +52,7 @@ export default {
       conceptsData: ConJson,
       imgMap: ImgMapJson,
       relData:RelJson,
+      conLocationData:[],
       pptInfo:[],
       videoDur:'',
       curPPT:0,
@@ -65,7 +65,41 @@ export default {
     },
     curPPT(val){
       tools.sleep(100).then(()=>{
-        document.getElementById('graphPanel').scrollLeft = 800;
+        // document.getElementById('graphPanel').scrollLeft = 800;
+      })
+    },
+    curConList(val){
+      this.drawRel();
+      const _this = this;
+      let imgMap  =_this.imgMap;
+      val.forEach((ccon,idx)=>{
+        d3.select(`#conLineRect_${ccon}`).attr("stroke-width",5).style("filter", "drop-shadow(4px 1px 4px rgb(75, 71, 71))");
+        let cconEnt =document.getElementById(`conLineRect_${ccon}`);
+        let cBbox = cconEnt.getBBox();
+        let curCon =_this.conceptsData.find(function(cc){return cc['id'] == ccon;});
+        let txts = curCon['name'];
+        let tx = cBbox['x']+cBbox['width']/2;
+        let ty = cBbox['y']+cBbox['height']+20;
+        let svg = d3.select(`#graphPanelSvg`);
+        // let txtRet = tools.drawTxt(svg, tx, ty, txts, "black", 20, `entText_${con['id']}`);
+        tools.drawTxts(svg, tx, ty, 10, txts, "black", 14, `entlineText_${ccon}`);
+        if(idx==0){
+          let time = tools.time2seconds(curCon['time'][0]);
+          let pTime = 0;
+          imgMap.forEach((iM,ix)=>{
+            let mtime = ( parseInt(iM.split(".")[0])*60+parseInt(iM.split(".")[1]));
+            console.log(iM,ix,mtime,pTime,time);
+            if(time>pTime&&time<mtime){
+              let ob = ix;
+              if(ix <= 5){
+                ob=0
+              }
+              document.getElementById('graphPanel').scrollLeft = 130*(ob);
+            }
+            pTime = mtime;
+            
+          })
+        }
       })
     },
     showGraph(val) {
@@ -111,6 +145,7 @@ export default {
       let videoDur = this.videoDur;
       d3.select("#graphPanel").select("svg").remove();
       let svg = d3.select("#graphPanel").append("svg")
+        .attr("id","graphPanelSvg")
         .attr("width", svgW)
         .attr("height", svgH)
         .style("position","absolute")
@@ -129,7 +164,8 @@ export default {
       let tx = w-r*3;
       let ty = h/2;
 
-      let relg = svg.append("g");
+      let relg = svg.append("g")
+        .attr("id", "relg");
       
       var defs = svg.append("defs");
 
@@ -207,8 +243,8 @@ export default {
 // )
 
       let minW  = 20;
-      let gapD = 20;
-      let totW = tx - sx;
+      let gapD = 10;
+      let totW = tx - sx-r*4;
       conData.forEach((d,i)=>{
         let time = d['time'];
         let cId = d['id'];
@@ -220,7 +256,7 @@ export default {
           totW -= (minW - cw);
         }
       })
-      totW-=gapD*(conData.length+2);
+      totW-=gapD*(conData.length+1);
       let wLinear = d3.scaleLinear([0, videoDur], [0, totW]);
       let px = sx-gapD;
       let conLocationData = {}
@@ -263,7 +299,7 @@ export default {
         let rColor1 = "rgb(10, 105, 173)";
         let rColor2 = "rgb(115, 191, 187)";
         let rColor3 = "rgb(237, 244, 201)";
-        let conRect = tools.drawRect(svg, cx, ry, cw, rh, 10, rColor, 1, "white", 1, `conLineRect_${cId}`, "conLineRect");
+        let conRect = tools.drawRect(svg, cx, ry, cw, rh, 10, rColor, 1, "grey", 1, `conLineRect_${cId}`, "conLineRect");
         conLocationData[cId]=[cx,cw];
         conRect.style("filter", "drop-shadow(4px 1px 4px rgb(175, 171, 171))");
         if((time2>0)&&(time1>0)){
@@ -279,24 +315,42 @@ export default {
         let conRect3 = tools.drawRect(svg, cx+tpLinear(time1)+tpLinear(time2), ry, tpLinear(time3), rh, 10, rColor3, 1, rColor3, 1, `conLineRect3_${cId}`, "conLineRect");
         // conRect.attr("style", `background: linear-gradient(90deg, rgba(43, 124, 182,0.5) ${20}%,rgb(234, 234, 234) ${30}%) !important`)
       })
-
+      this.conLocationData = conLocationData;
+      this.drawRel();
+    },
+    drawRel() {
       let relData = this.relData;
       let basicRels = relData['basicRel'];
-      let hScale_linear = d3.scaleLinear([0, w/3], [15, h/2-10])
-      basicRels.forEach((rel)=>{
+      let h = 80;
+      let w = this.width;
+      let hScale_linearb = d3.scaleLinear([0, w / 3], [20, h / 2 ]);
+      let hScale_linears = d3.scaleLinear([0, w / 3], [15, h / 2 - 10]);
+      let conLocationData = this.conLocationData;
+      let curConList = this.curConList;
+      d3.selectAll(".conRelLine").remove();
+      let relg = d3.select('#relg');
+      basicRels.forEach((rel) => {
         let rsId = rel[0];
         let rtId = rel[1];
-        let rsx = conLocationData[rsId][0] + conLocationData[rsId][1] / 2;
-        let rtx = conLocationData[rtId][0] + conLocationData[rtId][1] / 2;
-        let path = d3.path();
-        let lineColor = "rgb(198, 198, 198)";
-        let yh = hScale_linear(Math.abs(rtx - rsx));
-        path.moveTo(rsx,h/2);
-        path.lineTo(rsx,h/2-yh);
-        path.lineTo(rtx,h/2-yh);
-        path.lineTo(rtx,h/2);
-        tools.drawTimeLine(relg, path, lineColor, 2, '', `conRelLine_${rsId}_${rtId}`, 'conRelLine');
+        if ((curConList.indexOf(String(rsId)) != -1) || (curConList.indexOf(String(rtId)) != -1)) {
+          let rsx = conLocationData[rsId][0] + conLocationData[rsId][1] / 2;
+          let rtx = conLocationData[rtId][0] + conLocationData[rtId][1] / 2;
+          let path = d3.path();
+          let lineColor = "rgb(198, 198, 198)";
+          let yh = hScale_linearb(Math.abs(rtx - rsx));
+          path.moveTo(rsx, h / 2-10);
+          // path.lineTo(rsx, h / 2 - yh);
+          // path.lineTo(rtx, h / 2 - yh);
+          // path.lineTo(rtx, h / 2);
+          
+          let midX1 = rsx + (rtx - rsx) / 4;
+          let midX2 = rtx - (rtx - rsx) / 4;
+
+          path.bezierCurveTo(midX1, h / 2 - yh, midX2, h / 2 - yh, rtx, h / 2-10);
+          tools.drawTimeLine(relg, path, lineColor, 2, '', `conRelLine_${rsId}_${rtId}`, 'conRelLine');
+        }
       })
+
     },
     scrollHorizontally(e) {
         e = window.event || e;
@@ -318,11 +372,9 @@ export default {
       _this.curPPT = val;
     });
     this.$bus.$on('curConList', (val) => {
-      console.log("con",val)
       _this.curConList = val;
     });
     this.$bus.$on('curCon', (val) => {
-      console.log("cons",val)
       _this.curConList = val;
     });
 

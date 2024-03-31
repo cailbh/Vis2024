@@ -15,7 +15,7 @@
 /* 图片之间 */
 .image-middle{
   margin-right: 15px;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
 }
 /* 单张图片样式 */
 .image{

@@ -30,14 +30,14 @@
   }
   .perVideo{
     /* width: 80%; */
-    height: calc(100% - 70px);
+    height: calc(100% - 45px);
     text-align: center;
     margin: auto;
   }
   #rootTopicLine{
     float: left;
     background-color: white;
-    height: 70px;
+    height: 45px;
     width: 100%;
     overflow: hidden;
     /* transform: translateY(27px); */
@@ -79,7 +79,7 @@
       /* border: dashed rgb(179, 179, 179) 5px; */
       /* margin: 15px; */
       /* color: white; */
-      transform: translateY(-140px);
+      transform: translateY(-75px);
       /* margin-top: 20px; */
       /* border-radius: 20px; */
   }
@@ -177,14 +177,47 @@
     }
 }
 .showCertenTag{
-    animation: scaleA 1s;
+    /* animation: scaleA 1s; */
     border: solid rgb(200, 200, 200) 2px;
     border-radius: 10px;
     overflow: hidden;
     background: white;
-    transform: translate(-11%,11%) scale(0.78);
+    /* transform: translate(-11%,11%) scale(0.78); */
 }
 .unShowCertenTag{
-    animation: scaleA2 1s;
+    /* animation: scaleA2 1s; */
     /* transform: translate(100px,100px) scale(0.8); */
+}
+
+
+.chartTooltip {
+  position: absolute;
+  width: auto;
+  height: auto;
+  /* padding-left: 10px;
+  padding-top: -10px;
+  padding-bottom: -10px; */
+  box-sizing: border-box;
+  background-color: rgb(188, 23, 23);
+  border-radius: 5px;
+  z-index: 10000;
+
+  /* padding-left: 10px;
+  padding-top: -10px;
+  padding-bottom: -10px; */
+  box-sizing: border-box;
+  background-color: rgba(252, 252, 252, 0.844);
+  border-radius: 15px;
+  box-shadow: 0px 0px 8px 4px rgba(34, 162, 227, 0.4);
+  pointer-events: none;
+  /* box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); */
+  /* pointer-events: none; */
+  /* display: none; */
+}
+.chartTooltip.hidden {
+}
+.chartTooltip p {
+  margin: 0;
+  font-size: 14px;
+  text-align: left;
 }

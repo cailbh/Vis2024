@@ -12,6 +12,9 @@
       <!-- <transition name="showCertenTag"> -->
       <div id="VideoEditPanel" ref="vidEdit" class="" v-show="VideoEditPanelShow">
       </div>
+      <div class="chartTooltip toolTip">
+        <img id = "chartTooltipImg">
+      </div>
       <!-- </transition> -->
       <!-- <video class="perVideo" ref="video"   :src="url"></video> -->
     </div>
@@ -189,6 +192,7 @@ export default {
 
       if (_this.playOrPause == false) {
         _this.videoUrl1 = _this.videoUrl2;
+        document.getElementById(`iconVideo1`).style.opacity = 1;
         _this.VideoClass['showCertenTag'] = true;
         _this.VideoClass['unShowCertenTag'] = false;
       } else {
@@ -310,9 +314,12 @@ export default {
     drawTags() {
       const _this = this;
       let svg = d3.select("#VideoEditPanel").select("svg");
-
-      let tags = _this.tagsList;
+      let tagsData = this.tagsData;
+      let conceptsData = this.conceptsData;
+      let tags = _this.tagsList[0];
+      let htags = _this.tagsList[1];
       svg.select("#videoTags").remove();
+      svg.selectAll(".videoConTag").remove();
       let width = this.videoWidth; //- margin.left - margin.right;
       let height = this.videoHeight;
       let tagVideoSize = this.tagVideoSize;
@@ -334,19 +341,106 @@ export default {
         let type = tags[i]['type'];
         let rectColor = _this.tagsColor[type];
         let tagId = tags[i]['id'];
-        let tsgRect = tools.drawRect(g, x, y, w, h, 1, rectColor, 10, rectColor, 0.1, `videoRect${tagId}`, "videoTagRect", "0");
+        let tsgRect = tools.drawRect(g, x, y, w, h, 1, rectColor, 10, rectColor, 0, `videoRect${tagId}`, "videoTagRect", "0");
         tsgRect.on('click', function (d) {
           _this.tagsClick(tags[i]);
         })
-          .on("mouseover", function (d) {
-            d3.selectAll(".videoTagRect").style("filter", "");
-            d3.select(this).style("filter", "url(#outsideS)");
-          })
-          .on("mouseout", function (d) {
-            d3.selectAll(".videoTagRect").style("filter", "");
-          })
-        // 
+        .on("mouseover", function (d) {
+          d3.selectAll(".videoTagRect").style("filter", "");
+          d3.select(this).style("filter", "url(#outsideS)")
+            .attr("opacity",0.2);
+        // let datas = _this.getCurTagData(tags[i]);
+        // let [conceptsList,basicBFReL,basicNEReL] = datas;
+        // let bfSx = x;
+        // let stepX = 23;
+        // let imgUrl = require(`@/assets/img/tagsIcon/tag_text.png`);
+        // if(type=="text"){
+        //   basicBFReL.forEach((bBf,ind)=>{
+        //   let cx = x+stepX*ind;
+        //   let cy = y-10;
+        //   let tagsEnt = tools.drawImage(g, 20, 20, cx, cy, imgUrl, `videoConTagsB_${tagId}_${ind}`, 'videoConTag');
+        // });
+
+        // basicNEReL.forEach((bNe,ind)=>{
+        //   let cx = x+w-stepX*ind;
+        //   let cy = y-10;
+        //   let cId = bNe['id'];
+        //   if(tagId == 'text8'){
+        //     imgUrl = require(`@/assets/img/tagsIcon/tag_example.png`);
+        //   }
+        //   let imgid = 0;
+        //   if(cId == 8){
+        //     imgid =1
+        //   }
+        //   let tagsEntNe = tools.drawImage(g, 20, 20, cx, cy, imgUrl, `videoConTagsN_${tagId}_${cId}`, 'videoConTag');
+        //   tagsEntNe.attr("cursor","pointer")
+        //   tagsEntNe.on("mouseover",(d)=>{
+        //     let tid = d.target.id.split("_")[2];
+        //     let con = conceptsData.find((c)=>{return c['id'] == tid});
+        //     var yPosition = d.clientY - 80;
+        //     var xPosition = d.clientX + 20;
+        //     d3.select("#chartTooltipImg")
+        //     .attr("src", require(`@/assets/img/tagImg_${imgid}.png`)) // 替换为你的图片路径
+        //     // .attr("width", 300) // 设置图片宽度
+        //     // .attr("height", 100)
+        //     var chartTooltip = d3
+        //     .select(".chartTooltip")
+        //     .style("width", "auto")
+        //     .style("height", "auto")
+        //     .style("left", xPosition + "px")
+        //     .style("top", yPosition + "px");
+
+        //   }).on("click",(d)=>{
+        //     d3.select(".chartTooltip")
+        //     .style("display","none");
+        //     let tid = d.target.id.split("_")[2];
+        //     let con = conceptsData.find((c)=>{return c['id'] == tid})
+        //     let targetTime = con['time'];
+        //     let targetTag = tagsData.find((tg)=>{return tg['id'] == 'text54'})
+        //     _this.timeDot = tools.time2seconds(targetTime[0]);
+        //     // tools.sleep(1000).then(() => {
+        //     // _this.tagsClick(targetTag);
+        //     // })
+        //     console.log(d,tid,con,);
+        //   })
+        // })}
+        // let tagsList = [];
+        // conceptsList.forEach((ccp,ind)=>{
+        //   tagsList = Array.from(new Set([...tagsList,...ccp['serTags'],...ccp['tags']]));
+        // })
+        // let idx = 0;
+        // tagsList.forEach((tg,ind)=>{
+        //   let tempTag =tagsData.find(function(d){return d['id'] == tg;});
+        //   let type = tempTag['type'];
+        //   if (1){
+        //   let cx = x+stepX*idx;
+        //     idx+=1;
+        //   let cy = y+h+10;
+        //   let imgUrl = require(`@/assets/img/tagsIcon/tag_${type}.png`);
+        //   let tagsEnt = tools.drawImage(svg, 20, 20, cx, cy, imgUrl, `videoRelTags_${tagId}_${tempTag['id']}`, 'videoConTag');}
+        // })
+        })
+        .on("mouseout", function (d) {
+          d3.selectAll(".videoTagRect").style("filter", "");
+        })
         // .style("filter", "drop-shadow(" + color + " " + (30) + "px 0)")
+        // let conList = [...tags[i]['concepts'],...tags[i]['serveConcepts']]
+        // console.log(conList);
+        // conList.forEach((curCon,cIndex)=>{
+        //   console.log(curCon);
+        // // let imgUrl = require(`@/assets/img/tagsIcon/tag_${type}.png`);
+
+        // // let tagsEnt = tools.drawImage(svg, 30, 30, cx, cy, imgUrl, `videoConTags_${cId}_${ele}`, 'videoConTags');
+        // })
+        htags.forEach((ht)=>{
+          let tagId = ht['id'];
+          // d3.selectAll(".videoTagRect").style("filter", "");
+          d3.select(`#videoRect${tagId}`)
+            .attr("opacity",0.2)
+          // .style("filter", "drop-shadow(4px 10px 8px rgb(175, 171, 171))")
+          .style("filter", "url(#outsideS)");
+        })
+        
       }
 
     },
@@ -355,6 +449,7 @@ export default {
       _this.playOrPause = false;
       _this.videoUrl1 = _this.videoUrl2;
       _this.certenTag = tag;
+      document.getElementById(`iconVideo1`).style.opacity = 1;
       _this.$bus.$emit("playOrPause", _this.playOrPause);
       _this.VideoClass['showCertenTag'] = true;
       _this.VideoClass['unShowCertenTag'] = false;
@@ -375,6 +470,7 @@ export default {
       let videoHeight = this.videoHeight;
       let svg = d3.select("#VideoEditPanel").select("svg");
       svg.selectAll(".videoShowTags").remove();
+
       let backg = svg.append("g")
         .attr("class", "videoShowTags")
         .attr("width", videoWidth)
@@ -389,6 +485,7 @@ export default {
         .attr("class", "videoShowTags")
         .attr("width", videoWidth)
         .attr("height", videoHeight);
+
       this.relG = relG;
 
       let entG = svg.append("g")
@@ -414,55 +511,147 @@ export default {
         .attr("class", "videoShowTags")
         .attr("width", videoWidth)
         .attr("height", videoHeight)
-        .attr("xlink:href", dataURLBack);
+        .attr("xlink:href", dataURLBack)
+        .attr("opacity",0)
+        .transition()  // 开始执行动画
+        .duration(1000)
+        .attr("opacity",1)
+// -------------------------------------------------------
+      let maxW = 320;
+      let maxH = 180;
+
+      let trnX = 630;
+      let trnY = 80;
+
+      let imgW = maxW > width ? width : maxW;
+      let imgH = maxH > height ? height : maxH;
+
+      imgG
+      .attr("transform", function (d) {
+        return `translate(${x},${y})`;
+      })
+      .transition()  // 开始执行动画
+      .duration(1000)
+      .attr("transform", function (d) {
+        return `translate(${(videoWidth - maxW) - trnX},${videoHeight - maxH - trnY})`;
+      })
+      let imgRect = tools.drawRect(imgG, -2, -2, maxW + 4, maxH + 4, 10, "rgb(255, 255, 255)", 2, "white", 0, "tagImgBack", "", '0');
+      tools.transitionSvg(1000,imgRect, -2, -2, maxW + 4, maxH + 4, "rgb(255, 255, 255)", "black", 1, "rect");
+
+      imgG.append("image")
+        .attr("width", width)
+        .attr("height", height) 
+        .attr("xlink:href", dataURL)
+        .attr("vector-effect", "non-scaling-stroke")  
+        .attr("transform", function (d) {
+          return `translate(${(maxW - imgW) / 2},${(maxH - imgH) / 2})`;
+        })     
+        .on("click", function (d) { _this.tagsClick(tag) })
+        .transition()  // 开始执行动画
+        .duration(1000)
+        .attr("width", imgW)
+        .attr("height", imgH)  
+// -------------------------------------------------------
+
 
       let px = videoWidth / 3;
       let nx = videoWidth / 3 * 2;
       _this.px = px;
       _this.nx = nx;
+      let rectTop = 230;
       let rectMagin = 10;
-      tools.drawRect(backg, 0, rectMagin, px - rectMagin, videoHeight - rectMagin * 2, 20, tools.rgb2rgba("rgb(237, 244, 201)"), 1, "white", 0.5, "tagBackPre", "tagImgBack", '0');
-      tools.drawRect(backg, px, rectMagin, nx - px - rectMagin, videoHeight - rectMagin * 2, 20, tools.rgb2rgba("rgb(232, 245, 244)"), 1, "white", 0.5, "tagBackCur", "tagImgBack", '0');
-      tools.drawRect(backg, nx, rectMagin, videoWidth - nx - rectMagin, videoHeight - rectMagin * 2, 20, tools.rgb2rgba("rgb(252, 247, 231)"), 1, "white", 0.5, "tagBackNex", "tagImgBack", '0');
-      let tx1 = px/2;
-      let tx2 = px+(nx-px)/2;
-      let tx3 = nx+(videoWidth- nx)/2;
-      let ty = videoHeight-20;
+      let amiTime = 2000;
+      let rectB1 = tools.drawRect(backg,  0, rectTop, px - rectMagin, 0, 20, tools.rgb2rgba("rgb(237, 244, 201)"), 1, "white", 0.5, "tagBackPre", "tagImgBack", '0');
+      let rectB2 = tools.drawRect(backg, px, rectTop, nx - px - rectMagin, 0, 20, tools.rgb2rgba("rgb(232, 245, 244)"), 1, "white", 0.5, "tagBackCur", "tagImgBack", '0');
+      let rectB3 = tools.drawRect(backg, nx, rectTop, videoWidth - nx - rectMagin, 0, 20, tools.rgb2rgba("rgb(252, 247, 231)"), 1, "white", 0.5, "tagBackNex", "tagImgBack", '0');
+      
+      tools.transitionSvg(amiTime,rectB1, 0, rectTop, px - rectMagin, videoHeight - rectMagin -rectTop, tools.rgb2rgba("rgb(237, 244, 201)"), "white", 0.5, "rect");
+      tools.transitionSvg(amiTime,rectB2, px, rectTop, nx - px - rectMagin, videoHeight - rectMagin -rectTop, tools.rgb2rgba("rgb(232, 245, 244)"), "white", 0.5, "rect");
+      tools.transitionSvg(amiTime,rectB3, nx, rectTop, videoWidth - nx - rectMagin, videoHeight - rectMagin-rectTop, tools.rgb2rgba("rgb(252, 247, 231)"), "white", 0.5, "rect");
+      
+      let imgRect1 = tools.drawRect(backg, -2, -2, 250, 520, 10, "rgb(255, 255, 255)", 2, "white", 0, "tagBackTlB", "", '0');
+      tools.transitionSvg(1000,imgRect1, px/2-255, 640, 520, 330, "rgb(255, 255, 255)", "black", 1, "rect");
+
+      let imgUrltl = require(`@/assets/img/tl.svg`);
+        let tagsEnttl = tools.drawImage(backg, 500, 500, 0, 0, imgUrltl, `tagBackTl`, 'tagBackTl');
+          tagsEnttl.transition()  // 开始执行动画
+          .duration(1000)     // 设置动画持续时间
+          .attr('transform', `translate(${px/2}, 800)`)   // 移动位置
+      let imgUrltl1 = require(`@/assets/img/tagsIcon/tag_text.png`);
+        let tagsEnttl1 = tools.drawImage(backg, 35, 35, 0, 0, imgUrltl1, `tagBackTl1`, 'tagBackTl1');
+          tagsEnttl1.transition()  // 开始执行动画
+          .duration(1000)     // 设置动画持续时间
+          .attr('transform', `translate(${px/2+139}, 807)`)   // 移动位置
+
+      let imgUrltl2 = require(`@/assets/img/tagsIcon/tag_figure.png`);
+        let tagsEnttl2 = tools.drawImage(backg, 35, 35, 0, 0, imgUrltl2, `tagBackTl2`, 'tagBackTl2');
+          tagsEnttl2.transition()  // 开始执行动画
+          .duration(1000)     // 设置动画持续时间
+          .attr('transform', `translate(${px/2+221}, 807)`)   // 移动位置
+      let imgUrltl3 = require(`@/assets/img/tagsIcon/tag_equation.png`);
+        let tagsEnttl3 = tools.drawImage(backg, 35, 35, 0, 0, imgUrltl3, `tagBackTl3`, 'tagBackTl3');
+          tagsEnttl3.transition()  // 开始执行动画
+          .duration(1000)     // 设置动画持续时间
+          .attr('transform', `translate(${px/2+139}, 895)`)   // 移动位置
+
+      let imgUrltl4 = require(`@/assets/img/tagsIcon/tag_example.png`);
+        let tagsEnttl4 = tools.drawImage(backg, 35, 35, 0, 0, imgUrltl4, `tagBackTl4`, 'tagBackTl4');
+          tagsEnttl4.transition()  // 开始执行动画
+          .duration(1000)     // 设置动画持续时间
+          .attr('transform', `translate(${px/2+221}, 895)`)   // 移动位置
+      // rectB1.transition()  // 开始执行动画
+      //   .duration(1000)     // 设置动画持续时间
+      //   .attr('transform', 'translate(200, 100)')   // 移动位置
+      //   .attr("fill", "blue")   // 改变颜色
+      //   .attr('stroke-width', '0.5px')  // 添加边框
+      //   .attr('stroke', 'black')    // 边框颜色
+      
+      let tx1 = px / 2;
+      let tx2 = px + (nx - px)/2;
+      let tx3 = nx + (videoWidth - nx)/2;
+      let ty = videoHeight - 20;
 
       // let txtRet1 = tools.drawTxts(svg, tx1, ty, "Preparation", "black", 20, `tagBackTxt1`);
       // let txtRet2 = tools.drawTxt(svg, tx2, ty, "Demonstration", "black", 20, `tagBackTxt2`);
-      let txtRet1 = tools.drawTxts(svg, tx1, ty, 1, "Preparation", "black", 20, `tagBackTxt1`);
-      let txtRet2 = tools.drawTxts(svg, tx2, ty, 1, "Demonstration", "black", 20, `tagBackTxt2`);
-      let txtRet3 = tools.drawTxts(svg, tx3, ty, 1, "Application", "black", 20, `tagBackTxt3`);
-
-      let maxW = 320;
-      let maxH = 180;
-
-      let trnX = 730;
-      let trnY = 100;
-
-      let imgW = maxW > width ? width : maxW;
-      let imgH = maxH > height ? height : maxH;
-
-      imgG.attr("transform", function (d) {
-        return `translate(${(videoWidth - maxW) - trnX},${videoHeight - maxH - trnY})`;
+      let txtRet1 = tools.drawTxts(backg, tx1, ty, 1, "Preparation", "black", 20, `tagBackTxt1`);
+      let txtRet2 = tools.drawTxts(backg, tx2, ty, 1, "Demonstration", "black", 20, `tagBackTxt2`);
+      let txtRet3 = tools.drawTxts(backg, tx3, ty, 1, "Application", "black", 20, `tagBackTxt3`);
+      tools.sleep(2000).then(() => {
+        this.drawConcepts(tag, entG);
       })
-      tools.drawRect(imgG, -2, -2, maxW + 4, maxH + 4, 10, "rgb(255, 255, 255)", 2, "black", 1, "tagImgBack", "", '0');
-
-      imgG.append("image")
-        .attr("width", imgW)
-        .attr("height", imgH)
-        .attr("xlink:href", dataURL)
-        .attr("vector-effect", "non-scaling-stroke")
-        .attr("transform", function (d) {
-          return `translate(${(maxW - imgW) / 2},${(maxH - imgH) / 2})`;
-        })
-        .on("click", function (d) { _this.tagsClick(tag) });
-
-
-      this.drawConcepts(tag, entG);
     },
 
+    getCurTagData(tag){
+      let concepts = tag['concepts'];
+      let conceptsData = this.conceptsData;
+      let conceptsList = [];
+      let basicBFIdReL = [];
+      let basicNEIdReL = [];
+      let basicBFReL = [];
+      let basicNEReL = [];
+      concepts.forEach((element, index) => {
+        let curcon = conceptsData.find((d) => { return d['id'] == element; })
+        conceptsList.push(curcon);
+        let relevanceValue = curcon['attribute']['relevance'];
+        let curId = curcon['id'];
+        let basicRelConIds = curcon['basicRel'];
+        let similarityRelConIds = curcon['similarityRel'];
+        let allRel = [...basicRelConIds, ...similarityRelConIds];
+        allRel.forEach((bE) => {
+          let relCon = conceptsData.find((d) => { return d['id'] == bE; })
+
+          if ((parseInt(bE) < parseInt(curId)) && (basicBFIdReL.indexOf(bE) == -1)) {
+            basicBFIdReL.push(bE);
+            basicBFReL.push(relCon);
+          }
+          else if ((parseInt(bE) > parseInt(curId)) && (basicNEIdReL.indexOf(bE) == -1)) {
+            basicNEIdReL.push(bE);
+            basicNEReL.push(relCon);
+          }
+        })
+      })
+      return [conceptsList,basicBFReL,basicNEReL]
+    },
     drawConcepts(tag, svg) {
       const _this = this;
 
@@ -476,15 +665,15 @@ export default {
       let len = concepts.length;
 
       let sx = videoWidth / 3;
-      let sy = videoHeight / 3;
+      let sy = videoHeight / 2-60;
 
       let px = videoWidth / 3;
       let nx = videoWidth / 3 * 2;
 
       let minDRelevance = _this.minDRelevance;
       let maxDRelevance = _this.maxDRelevance;
-      let maxR = 40;
-      let rScale = d3.scaleLinear([minDRelevance, maxDRelevance], [20, maxR]);
+      let maxR = 25;
+      let rScale = d3.scaleLinear([minDRelevance, maxDRelevance], [10, maxR]);
       let rtot = 0;
       let rtotP = 0;
       let rtotN = 0;
@@ -651,7 +840,7 @@ export default {
       const _this = this;
       let gapX = 20;
       let w = (nx - px - gapX * (rootConList.length + 1)) / (rootConList.length);
-      let h = 60;
+      let h = 40;
       let rx = 10;
       let stroke = 'rgb(10, 105, 173)'
       let fill = "rgb(10, 105, 173)";
@@ -673,14 +862,18 @@ export default {
         // if(tools.hasDuplicates(conceptsList,sonIdList)){
         let x = px + gapX;
         px += cW + gapX;
-        let y = 40;
+        let y = 240;
         let rect = tools.drawRect(svg, x, y, cW, h, rx, fill, strokeWidth, stroke, 1, `rootCon_${cId}`, 'rootCon', '0');
         // rect.style("filter", "url(#outsideS)");
         rect.style("filter", "drop-shadow(4px 10px 8px rgb(175, 171, 171))");
-        let tx = x + w / 2;
+        let tx = x + cW / 2;
         let ty = y + h;
         let txts = d['name'];
-        let txtRet = tools.drawTxt(svg, tx, ty, txts, "black", 20, `entRootText_${cId}`);
+        let txtsP =txts.split(" ")
+          if(txtsP.length>2){
+            txts = `${txtsP[0]} ${txtsP[1]} ...`;
+          }
+        let txtRet = tools.drawTxt(svg, tx, ty, txts, "black", 16, `entRootText_${cId}`);
         txtRet[0].attr("transform", `translate(-${txtRet[1]['width'] / 2},-${txtRet[1]['height']})`);
 
         let sonPx = x;
@@ -702,7 +895,7 @@ export default {
       const _this = this;
       let gapX = 10;
       let w = (nx - px - gapX * (sonConList.length + 1)) / (sonConList.length);
-      let h = 35;
+      let h = 30;
       let rx = 10;
       let stroke = 'rgb(171, 208, 216)'
       let fill = "rgb(171, 208, 216)";
@@ -714,6 +907,7 @@ export default {
 
         let curTimeDur = d['totalDuration'];
         let sonIdList = d['son'];
+        console.log("f",cId,"s",sonIdList,conceptsList,tools.hasDuplicates(conceptsList, sonIdList))
         if ((tools.hasDuplicates(conceptsList, sonIdList))) {
           let cW = widthLinear(curTimeDur);
           let x = px + gapX;
@@ -723,9 +917,13 @@ export default {
 
           rect.style("filter", "drop-shadow(4px 10px 8px rgb(175, 171, 171))");
           let tx = x + cW / 2;
-          let ty = y + h / 2;
+          let ty = y + h / 2+6;
           let txts = d['name'];
-          tools.drawTxts(svg, tx, ty, w * 0.8, txts, "black", 20, `entText_${cId}`);
+          let txtsP =txts.split(" ")
+          if(txtsP.length>2){
+            txts = `${txtsP[0]} ${txtsP[1]} ...`;
+          }
+          tools.drawTxts(svg, tx, ty, w * 0.8, txts, "black", 14, `entText_${cId}`);
           // let txtRet = tools.drawTxt(svg, tx, ty, txts, "black", 20, `entSonText_${cId}`);
           // txtRet[0].attr("transform", `translate(-${txtRet[1]['width'] / 2},-${txtRet[1]['height'] / 2})`);
 
@@ -754,7 +952,6 @@ export default {
         _this.drawRel(...r);
       })
       fatherSonRelList.forEach((e) => {
-        console.log(e)
         _this.drawFatherSonRel(...e);
       })
     },
@@ -785,7 +982,7 @@ export default {
 
       let lineColor = 'rgb(107, 178, 168)';
       if (type == 0) {
-        let hScale_linear = d3.scaleLinear([0, _this.videoWidth / 3], [0, 100])
+        let hScale_linear = d3.scaleLinear([0, _this.videoWidth / 3], [10, 55])
         cny += hScale_linear(tx - sx);
         let midX1 = sx + (tx - sx) / 4;
         let midX2 = tx - (tx - sx) / 4;
@@ -794,13 +991,14 @@ export default {
         tools.drawTimeLine(g, path, lineColor, 2, '', `BarelLine_${s}_${t}`, 'relLine');
       }
       else if (type == 1) {
-        let hScale_linear = d3.scaleLinear([0, _this.videoWidth / 3], [0, 70])
-        cny += hScale_linear(tx - sx);
+        let hScale_linear = d3.scaleLinear([0, Math.pow(_this.videoWidth / 3,3)], [0, 45])
+        cny += hScale_linear(Math.pow((tx - sx),3));
         let midX1 = sx + (tx - sx) / 4;
         let midX2 = tx - (tx - sx) / 4;
+        if(t == '17'){cny+=10}
         path.moveTo(sx, sy);
         path.lineTo(sx, cny);
-        path.arcTo(sx + 10, cny + 10, sx + 20, cny + 20, 1);
+        // path.arcTo(sx + 10, cny + 10, sx + 20, cny + 20, 1);
         path.lineTo(tx, cny);
         path.lineTo(tx, ty);
         // path.bezierCurveTo(midX1, cny, midX2, cny, tx, ty);
@@ -812,6 +1010,7 @@ export default {
       let g = this.relG;
       let source = document.getElementById(s);
       let target = document.getElementById(t);
+      console.log(s,t,source,target)
 
       let conceptsData = this.conceptsData;
       let sCon = conceptsData.find((d) => { return d['id'] == s.split("_")[1]; })
@@ -900,18 +1099,23 @@ export default {
       let circleColor = compute_color(color_linear(importanceValue));
       let icong = g.append("g");
       let svg = g.append("g")
-
-      tools.drawCircle(svg, x, cy, r + 20, "rgb(224, 250, 237)", 1, "white", 1, "entCircle", `entCircle_${con['id']}`);
-      this.drawConRelConEnt(svg, con, x, y, r + 10);
-      let entCircle = tools.drawCircle(svg, x, cy, r, circleColor, 1, "white", 0, "entCircle", `nEntCircle_${con['id']}`);
-      entCircle.on("click", (d) => {
-        _this.drawConTags(g, con, px + 100, y + 150, height / 2 - 50);
-      })
+      
       let tx = x;
-      let ty = y + r * 3 + 10;
+      let ty = y + r * 3 + 30;
       let txts = con['name'];
       // let txtRet = tools.drawTxt(svg, tx, ty, txts, "black", 20, `entText_${con['id']}`);
-      tools.drawTxts(svg, tx, ty, r, txts, "black", 20, `entText_${con['id']}`);
+      tools.drawTxts(svg, tx, ty, r, txts, "black", 14, `entText_${con['id']}`);
+
+      if(txts == 'Example'){
+        let imgUrl = require(`@/assets/img/tagsIcon/tag_example.png`);
+        // tools.drawCircle(svg, cx, cy, r, fill, 1, stroke, 1, 'circle',' idName')
+        // let tagsEnt = tools.drawPolygon(svg, points, `conTags${ele}`, 0, stroke, fill);
+        let tagsEnt = tools.drawImage(svg, 50, 50, x, cy, imgUrl, `entExample_${con['id']}`, 'entCircle');
+        return
+        // d3.selectAll('.entCircle').remove()
+        // d3.selectAll('.conIncon').remove()
+        // d3.selectAll('.relCon').remove()
+      }
       // txtRet[0].attr("transform", `translate(-${txtRet[1]['width'] / 2},-${txtRet[1]['height'] / 2})`)
       this.drawSerTags(icong, con, x, y, r, circleColor);
       let fatherId = con['father'][0];
@@ -923,6 +1127,26 @@ export default {
         _this.fatherSonRelList.push([`rootCon_${con['id']}`, `entCircle_${con['id']}`,ifCur]);
 
       }
+
+      tools.drawCircle(svg, x, cy, r + 15, "rgb(224, 250, 237)", 1, "white", 1, "entCircle", `entCircle_${con['id']}`);
+      this.drawConRelConEnt(svg, con, x, y, r + 7);
+      let entCircle = tools.drawCircle(svg, x, cy, r, circleColor, 1, "white", 0, "entCircle", `nEntCircle_${con['id']}`);
+      if(ifCur){
+        _this.drawConTags(g, con, px + 100, y + 250, height / 2 - 250);
+      }
+      entCircle.on("mouseover", (d) => {
+        _this.drawConTags(g, con, px + 100, y + 250, height / 2 - 250);
+      }).on("click", (d) => {
+            _this.playOrPauseClick();
+            let tid = d.target.id.split("_")[1];
+            let con = oData.find((c)=>{return c['id'] == tid})
+            let targetTime = con['time'];
+            let targetTag = tagsData.find((tg)=>{return tg['id'] == 'text33'})
+            _this.timeDot = tools.time2seconds(targetTime[0]);
+            tools.sleep(1000).then(() => {
+            _this.tagsClick(targetTag);
+            })
+      })
     },
     drawConRelConEnt(svg, con, x, y, r, color) {
       const _this = this;
@@ -955,10 +1179,10 @@ export default {
         .outerRadius(rlen + outsideR);
       var pathArc = arcPath(dataset);
       // (svg, x, y, arcPath, stroke, fill, className, idName, stroke_dasharray, width)
-      tools.drawArc(svg, x, y, pathArc, circleColor, circleColor, "relCon", `relCon_${con['id']}_${con['id']}`, "0", 12);
+      tools.drawArc(svg, x, y, pathArc, circleColor, circleColor, "relCon", `relCon_${con['id']}_${con['id']}`, "0", 5);
 
       let ptheta = 0;
-      let minGapTheta = Math.PI / 9;
+      let minGapTheta = Math.PI / 6;
       rel.sort((a,b)=>{
         
         let curcon1 = conceptsData.find((d) => { return d['id'] == a; })
@@ -982,17 +1206,17 @@ export default {
         let cy = y - rlen * Math.cos(curTheta);
         let importanceValue = curcon['attribute']['importance'];
         let circleColor = compute_color(color_linear(importanceValue));
-        tools.drawCircle(svg, cx, cy, 7, circleColor, 1, "white", 0, "circle", `relCon_${con['id']}_${curcon['id']}`);
+        tools.drawCircle(svg, cx, cy, 4, circleColor, 1, "white", 0, "relCon", `relCon_${con['id']}_${curcon['id']}`);
       })
     },
     drawConTags(svg, con, x, y, h) {
-      
+      const _this = this;
       let tags = Array.from(new Set([...con['serTags'],...con['tags']]));
       let cId = con['id'];
       let tagsData = this.tagsData;
       let tagOdata = [];
-      let r = 25;
-      let stepr = 10;
+      let r = 12;
+      let stepr = 7;
       let rTot = 0;
       let waiColor = "rgb(107, 107, 107)";
 
@@ -1017,18 +1241,34 @@ export default {
 
       let points = tools.calcTriangle(x, sY, 4);
       let sEnt = tools.drawPolygon(svg, points, `conTagsSourceIcon${cId}`, 1, waiColor, waiColor, "conTags");
-      sEnt.style("transform-origin", "center")
+      sEnt
+        .transition()  // 开始执行动画
+        .duration(1000)
+        .style("transform-origin", "center")
         .style("transform-box", "fill-box")
         .attr("transform", `rotate(${180})`);
-      tools.drawCircle(svg, x, tY, 4, waiColor, 1, "white", 0, "conTags", `conTagsTargetIcon${cId}`);
-
+      let eEnt = tools.drawCircle(svg, x, sY, 4, waiColor, 1, "white", 0, "conTags", `conTagsTargetIcon${cId}`);
+      eEnt
+        .transition()  // 开始执行动画
+        .duration(1000)
+        .attr("cx", x)
+        .attr("cy", tY)
       let preY = y + sevR;
       let px = this.px;
+      let jiantouPath1 = d3.path();
+      jiantouPath1.moveTo(x, sY);
+      jiantouPath1.lineTo(x, sY);
       let jiantouPath = d3.path();
       jiantouPath.moveTo(x, sY);
       jiantouPath.lineTo(x, tY);
-      tools.drawTimeLine(svg, jiantouPath, waiColor, 1.5, '4,5', `conTags${con['id']}`, 'conTags');
+      let pathE = tools.drawTimeLine(svg, jiantouPath1, waiColor, 1.5, '4,5', `conTags${con['id']}`, 'conTags');
+      pathE.transition()
+        .duration(1000)
+        .attr('d', jiantouPath)
 
+      let color_linear = _this.importanceColor_linear;
+      let compute_color = _this.importanceCompute_color;
+      
       tagOdata.forEach((tag, ind) => {
         let ele = tag['id'];
         let type = tag['type'];
@@ -1038,6 +1278,7 @@ export default {
         let stroke = 'rgb(175, 195, 230)';
         let fill = 'rgb(175, 195, 230)';
 
+
         let cx = x;
         if(type=='text'){
           len=0;
@@ -1046,15 +1287,29 @@ export default {
         let cy = preY + r + stepr * (rNum);
 
         preY = cy + r + stepr * (rNum) + sevR;
-        let cirFill = 'rgb(123, 150, 196)';
-        for (let i = len - 1; i >= 0; i--) {
-          tools.drawCircle(svg, cx, cy, r + stepr * i, cirFill, 1, "grey", 3, 'conTags', `conTagsCir_${cId}_${ele}_${i}`)
+        for (let i = len - 1; i >= 0; i--) { 
+          let con =   this.conceptsData.find((d) => { return d['id'] == serveConcepts[i]; });
+          let importanceValue = con['attribute']['importance']; 
+          let cirFill = compute_color(color_linear(importanceValue));
+          let cCir = tools.drawCircle(svg, cx, cy, 0, cirFill, 1, "white", 1, 'conTags', `conTagsCir_${cId}_${ele}_${i}`);
+
+          cCir.transition()
+            .duration((((ind+1)*(2000/(tagOdata.length+1)))/(i+1)))
+            .attr("cx", cx)
+            .attr("cy", cy)
+            .attr("r", r + stepr * i)
         }
         // let tagsEnt = tools.drawPolygon(svg, points, `conTags${ele}`, 10, stroke, fill);
         let imgUrl = require(`@/assets/img/tagsIcon/tag_${type}.png`);
         // tools.drawCircle(svg, cx, cy, r, fill, 1, stroke, 1, 'circle',' idName')
         // let tagsEnt = tools.drawPolygon(svg, points, `conTags${ele}`, 0, stroke, fill);
-        let tagsEnt = tools.drawImage(svg, 30, 30, cx, cy, imgUrl, `conTags_${cId}_${ele}`, 'conTags');
+        let tagsEnt = tools.drawImage(svg, 0, 0, cx, cy, imgUrl, `conTags_${cId}_${ele}`, 'conTags');
+          tagsEnt.transition()
+          .duration(1000)
+            .attr("width", 20)
+            .attr("height", 20)          
+            .attr("x", cx-10)
+            .attr("y", cy-10)
       })
     },
     drawSerTags(svg, con, x, y, r, color) {
@@ -1064,7 +1319,7 @@ export default {
       let len = tags.length;
       let id = con['id']
       let sevR = 15;
-      let outsideR = 30
+      let outsideR = 23
       let jiantouPath = d3.path();
       let sTheta = -Math.PI / 2 //- Math.PI / 6;
       let tTheta = Math.PI + Math.PI / 5;
@@ -1075,7 +1330,7 @@ export default {
       // 0, this.videoDur
       // 
       jiantouPath.arc(x, y, r + outsideR, sTheta, tTheta)//Math.PI * 2-Math.PI/2-Math.PI/2);
-      tools.drawTimeLine(svg, jiantouPath, waiColor, 1.5, '4,5', 'midArc ', 'midArc ');
+      tools.drawTimeLine(svg, jiantouPath, waiColor, 1.5, '2,3', "conIncon", "conIncon");
       let thetaLinear = d3.scaleLinear([tools.time2seconds(timeDur[0]), tools.time2seconds(timeDur[1])], [sTheta + Math.PI / 2, tTheta + Math.PI / 2]);
 
 
@@ -1087,12 +1342,12 @@ export default {
       let cty = y - rlen * Math.cos(tTheta + Math.PI / 2);
 
 
-      let points = tools.calcTriangle(csx, csy, 4);
-      let sEnt = tools.drawPolygon(svg, points, `conSourceIcon${id}`, 1, waiColor, waiColor);
+      let points = tools.calcTriangle(csx, csy, 2);
+      let sEnt = tools.drawPolygon(svg, points, `conSourceIcon${id}`, 1, waiColor, waiColor,"conIncon");
       sEnt.style("transform-origin", "center")
         .style("transform-box", "fill-box")
         .attr("transform", `rotate(${180 * sTheta / Math.PI + 66})`);
-      tools.drawCircle(svg, ctx, cty, 4, waiColor, 1, "white", 1, "circle", `conTargetIcon${id}`);
+      tools.drawCircle(svg, ctx, cty, 2, waiColor, 1, waiColor, 1, "conIncon", `conTargetIcon${id}`);
 
       let ptheta = sTheta + Math.PI / 2;
       tags.forEach((ele, ind) => {
@@ -1103,16 +1358,16 @@ export default {
         let stroke = color//'rgb(175, 195, 230)';
         let fill = color//'rgb(175, 195, 230)';
         let rlen = r + outsideR;
-        let stepR = Math.PI / 6;
+        let stepR = Math.PI / 5;
         let curTheta = stepR * (ind + 1);//thetaLinear(timeDot)/
         // tTheta = curTheta;
-        let minGapTheta = Math.PI / 6;
+        let minGapTheta = Math.PI / 7;
         // if((Math.abs(curTheta-ptheta)<minGapTheta))curTheta=ptheta + minGapTheta;
         ptheta = curTheta;
-        let imgR = 20;
+        let imgR = 19;
         if (type == 'text') {
-          rlen -= 5;
-          imgR += 5
+          rlen -= 1;
+          imgR += 1
         }
         let cx = x + rlen * Math.sin(curTheta);
         let cy = y - rlen * Math.cos(curTheta);
@@ -1168,23 +1423,23 @@ export default {
       let axisDur = 120;
       let stepDur = 12;
       let xIndex = 0;
-      let py = 20;
+      let py = 15;
       while ((xIndex * stepDur) < videoDur) {
         let cx = xLinear(xIndex * stepDur);
         xIndex += 1;
-        let cy = (py == 15) ? 20 : 15;
+        let cy = (py == 10) ? 15 : 10;
         let w = 1;
         py = cy;
         let path = d3.path();
         path.moveTo(cx, 0);
         path.lineTo(cx, cy);
         let lineColor = "grey";
-        let textColor = "grey";
+        let textColor = "black";
         if ((stepDur * xIndex) % axisDur == 0) {
           w = 2;
           cy += 3;
           let name = tools.seconds2time(xIndex * stepDur, 1);
-          let axisTxt = tools.drawTxt(svg, cx, 20, name, textColor, 16, `axisLtxts${xIndex}`);
+          let axisTxt = tools.drawTxt(svg, cx, 15, name, textColor, 14, `axisLtxts${xIndex}`);
           axisTxt[0].attr("transform", `translate(-${axisTxt[1]['width'] / 2},${axisTxt[1]['height']})`);
         }
         tools.drawTimeLine(svg, path, lineColor, w, '', `axisLine_${xIndex}`, 'axisLine');
@@ -1225,6 +1480,7 @@ export default {
       const _this = this;
       let tagsData = _this.tagsData;
       let tags = [];
+      let htags = [];
       for (let t in tagsData) {
         let timeDur = tagsData[t]['timeDur'];
         let sTime = timeDur[0];
@@ -1232,8 +1488,17 @@ export default {
         if ((timeDot > sTime) && (timeDot < eTime)) {
           tags.push(tagsData[t])
         }
+        let hoverTimeDurs = tagsData[t]['conTime'];
+        hoverTimeDurs.forEach((ti)=>{
+
+          let sT = tools.time2seconds(ti[0]);
+          let eT = tools.time2seconds(ti[1]);
+          if ((timeDot > sT) && (timeDot < eT)) {
+            htags.push(tagsData[t])
+          }
+        })
       }
-      _this.tagsList = tags;
+      _this.tagsList = [tags,htags];
     },
     addScript(timeDot) {
       const _this = this;
@@ -1265,10 +1530,13 @@ export default {
       let width = this.$refs.videoScript.offsetWidth - margin.left - margin.right;
       let height = this.$refs.videoScript.offsetHeight - margin.top - margin.bottom + 10;
       d3.select("#videoScript").select("svg").remove();
-      var svg = d3.select("#videoScript").append("svg")
+      var g = d3.select("#videoScript").append("svg")
         .attr("id", "videoScriptSvg")
         .attr("width", width)
         .attr("height", height);
+      let rg = g.append("g");
+      let svg = g.append("g");
+
       let tx = 30;
       let ty = 50;
       let lay = 0;
@@ -1282,7 +1550,8 @@ export default {
         // _this.drawRect(g, tx, ty, w, h, rx, ry, color, 0.2, color)
         let textColor = "white";
         let stopList = ["of", "the", "and", "be", "two", "x", "y", "z", "a", "to"];
-        if ((ketText.indexOf(name) != -1) && (stopList.indexOf(name) == -1)) {
+        let conNameList = ["variable","variables","probability","mean","variance"];
+        if (((ketText.indexOf(name) != -1) && (stopList.indexOf(name) == -1)||(conNameList.indexOf(name) != -1))) {
           textColor = "red";
         }
         let svgArea = tools.drawTxt(svg, tx, ty, name, textColor, 34, `txts${i}`)[1];
@@ -1303,6 +1572,14 @@ export default {
           }
         }
       }
+      let txtDom = document.getElementById('videoScriptSvg')
+      let txtBbox = txtDom.getBBox();
+      let cx = txtBbox['x'];
+      let cy = txtBbox['y'];
+      let w = txtBbox['width'];
+      let h = txtBbox['height'];
+      let rColor = 'grey';
+      tools.drawRect(rg, cx - 5, cy-5, w+5, h+5, 5, rColor, 2, rColor, 0.5, "videoScriptBack", "videoScriptBack");
     },
     drawrootTopicLine() {
       const _this = this;
@@ -1378,18 +1655,15 @@ export default {
   },
   created() {
     var _this = this;
-    this.$bus.$on('graphData', (val) => {
-      _this.data = val;
-      let ketText = [];
-      for (let i = 0; i < _this.data.length; i++) {
-        let names = _this.data[i]['name'].split(" ");
-        for (let n in names) {
-          ketText.push(names[n]);
-        }
+    let data = this.conceptsData;
+    let ketText = [];
+    for (let i = 0; i < data.length; i++) {
+      let names = data[i]['name'].split(" ");
+      for (let n in names) {
+        ketText.push(names[n]);
       }
-      _this.ketText = ketText;
-      _this.drawrootTopicLine();
-    });
+    }
+    _this.ketText = ketText;
 
     this.$bus.$on('tagsColor', (val) => {
       _this.tagsColor = val;

@@ -38,52 +38,11 @@
         ],
         "type": "0",
         "totalDuration": 76,
-        "tags": [
-            "equation30",
-            "equation31",
-            "equation32",
-            "equation35",
-            "text43",
-            "text45",
-            "equation36",
-            "equation37",
-            "equation38",
-            "equation39",
-            "equation40",
-            "equation41",
-            "text48",
-            "text49",
-            "equation42",
-            "equation43",
-            "equation44",
-            "equation45",
-            "equation46",
-            "equation47",
-            "equation48",
-            "equation49",
-            "equation50",
-            "equation51",
-            "equation52"
-        ],
+        "tags": [],
         "serTags": [
-            "equation30",
-            "equation31",
-            "equation32",
-            "text43",
-            "equation39",
-            "equation40",
-            "equation41",
-            "text49",
-            "equation45",
-            "equation46",
-            "equation47",
-            "equation48",
-            "equation49",
-            "equation50",
-            "equation51",
-            "equation52",
             "equation54",
             "text57",
+            "text61",
             "text65",
             "text66"
         ]
@@ -128,28 +87,8 @@
         "type": "0",
         "totalDuration": 8,
         "tags": [
-            "equation30",
-            "equation35",
-            "text43",
-            "equation36",
-            "equation37",
-            "text49",
-            "equation42",
-            "equation44",
-            "text50",
-            "text61"
         ],
         "serTags": [
-            "equation30",
-            "equation35",
-            "text43",
-            "equation39",
-            "equation40",
-            "equation41",
-            "text49",
-            "equation45",
-            "text50",
-            "text61"
         ]
     },
     {
@@ -195,17 +134,9 @@
         "type": "0",
         "totalDuration": 58,
         "tags": [
-            "equation32",
-            "equation46",
-            "equation51",
-            "equation52",
             "text58"
         ],
         "serTags": [
-            "equation32",
-            "equation46",
-            "equation51",
-            "equation52",
             "equation54",
             "text57"
         ]
@@ -254,7 +185,8 @@
         "totalDuration": 22,
         "tags": [
             "text57",
-            "text58"
+            "text58",
+            "text59"
         ],
         "serTags": [
             "equation53",
@@ -303,13 +235,9 @@
         "type": "0",
         "totalDuration": 26,
         "tags": [
-            "equation31",
-            "equation33",
             "text61"
         ],
         "serTags": [
-            "equation31",
-            "equation33",
             "equation53",
             "equation55",
             "text61"
@@ -411,31 +339,9 @@
         "type": "0",
         "totalDuration": 70,
         "tags": [
-            "text32",
-            "equation39",
-            "equation40",
-            "equation41",
-            "equation45",
-            "text53",
-            "equation51",
-            "equation52",
-            "text55",
-            "text56",
             "text61"
         ],
         "serTags": [
-            "text32",
-            "text43",
-            "equation39",
-            "equation40",
-            "equation41",
-            "text49",
-            "equation45",
-            "text53",
-            "equation51",
-            "equation52",
-            "text55",
-            "text56",
             "text58",
             "text61"
         ]
@@ -473,11 +379,11 @@
         "timeSonId": "8",
         "basicRel": [
             "3",
-            "13"
+            "13",
+            "23"
         ],
         "similarityRel": [
-            "17",
-            "23"
+            "17"
         ],
         "son": [],
         "father": [
@@ -485,19 +391,9 @@
         ],
         "type": "0",
         "totalDuration": 41,
-        "tags": [
-            "text35",
-            "text36",
-            "equation28",
-            "text50",
-            "equation47"
-        ],
+        "tags": [],
         "serTags": [
-            "text35",
-            "text36",
-            "equation28",
-            "text50",
-            "equation47"
+            "text58"
         ]
     },
     {
@@ -547,28 +443,8 @@
         ],
         "type": "0",
         "totalDuration": 27,
-        "tags": [
-            "text35",
-            "text36",
-            "equation28",
-            "text50",
-            "equation46",
-            "text52",
-            "equation49",
-            "equation50",
-            "text56"
-        ],
+        "tags": [],
         "serTags": [
-            "text35",
-            "text36",
-            "equation28",
-            "equation35",
-            "text50",
-            "equation46",
-            "text52",
-            "equation49",
-            "equation50",
-            "text56",
             "text58"
         ]
     },
@@ -616,12 +492,7 @@
         "type": "0",
         "totalDuration": 67,
         "tags": [],
-        "serTags": [
-            "equation39",
-            "equation40",
-            "equation41",
-            "equation45"
-        ]
+        "serTags": []
     },
     {
         "id": "10",
@@ -664,12 +535,8 @@
         ],
         "type": "0",
         "totalDuration": 82,
-        "tags": [
-            "text38"
-        ],
-        "serTags": [
-            "text38"
-        ]
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "11",
@@ -710,16 +577,12 @@
             "14"
         ],
         "father": [
-            "10"
+            "11"
         ],
         "type": "0",
         "totalDuration": 73,
-        "tags": [
-            "text38"
-        ],
-        "serTags": [
-            "text38"
-        ]
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "12",
@@ -760,16 +623,8 @@
         ],
         "type": "0",
         "totalDuration": 22,
-        "tags": [
-            "text36",
-            "text41",
-            "equation34"
-        ],
-        "serTags": [
-            "text36",
-            "text41",
-            "equation34"
-        ]
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "13",
@@ -818,17 +673,9 @@
         ],
         "type": "0",
         "totalDuration": 23,
-        "tags": [
-            "text33",
-            "equation26",
-            "text35",
-            "equation29"
-        ],
+        "tags": [],
         "serTags": [
-            "text33",
-            "equation26",
-            "text35",
-            "equation29"
+            "text58"
         ]
     },
     {
@@ -873,19 +720,8 @@
         ],
         "type": "0",
         "totalDuration": 5,
-        "tags": [
-            "text34",
-            "equation27",
-            "equation29"
-        ],
-        "serTags": [
-            "text34",
-            "equation27",
-            "equation29",
-            "text43",
-            "text49",
-            "text58"
-        ]
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "15",
@@ -926,12 +762,8 @@
         ],
         "type": "0",
         "totalDuration": 104,
-        "tags": [
-            "text30"
-        ],
-        "serTags": [
-            "text30"
-        ]
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "16",
@@ -977,12 +809,8 @@
         ],
         "type": "0",
         "totalDuration": 67,
-        "tags": [
-            "equation24"
-        ],
-        "serTags": [
-            "equation24"
-        ]
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "17",
@@ -1029,14 +857,8 @@
         ],
         "type": "0",
         "totalDuration": 29,
-        "tags": [
-            "text31",
-            "equation25"
-        ],
-        "serTags": [
-            "text31",
-            "equation25"
-        ]
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "18",
@@ -1083,14 +905,8 @@
         ],
         "type": "0",
         "totalDuration": 32,
-        "tags": [
-            "text29",
-            "equation23"
-        ],
-        "serTags": [
-            "text29",
-            "equation23"
-        ]
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "19",
@@ -1139,17 +955,8 @@
         ],
         "type": "0",
         "totalDuration": 144,
-        "tags": [
-            "text21",
-            "text22",
-            "equation17"
-        ],
-        "serTags": [
-            "text21",
-            "text22",
-            "equation17",
-            "equation35"
-        ]
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "20",
@@ -1190,18 +997,8 @@
         ],
         "type": "0",
         "totalDuration": 12,
-        "tags": [
-            "text23",
-            "equation17",
-            "equation18",
-            "text39"
-        ],
-        "serTags": [
-            "text23",
-            "equation17",
-            "equation18",
-            "text39"
-        ]
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "21",
@@ -1242,17 +1039,13 @@
         ],
         "type": "0",
         "totalDuration": 7,
-        "tags": [
-            "text24"
-        ],
-        "serTags": [
-            "text24"
-        ]
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "22",
         "layout": "1",
-        "name": "expectation",
+        "name": "expectation of n random cariables",
         "time": [
             "00:07:09",
             "00:07:10"
@@ -1279,20 +1072,15 @@
         "similarityRel": [],
         "son": [
             "23",
-            "24",
-            "25"
+            "24"
         ],
         "father": [
             "19"
         ],
         "type": "0",
         "totalDuration": 57,
-        "tags": [
-            "text18"
-        ],
-        "serTags": [
-            "text18"
-        ]
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "23",
@@ -1326,9 +1114,9 @@
         "timeFatherId": "22",
         "timeSonId": "24",
         "basicRel": [
+            "7"
         ],
         "similarityRel": [
-            "7",
             "17",
             "27"
         ],
@@ -1338,16 +1126,8 @@
         ],
         "type": "0",
         "totalDuration": 9,
-        "tags": [
-            "text19",
-            "equation13",
-            "equation14"
-        ],
-        "serTags": [
-            "text19",
-            "equation13",
-            "equation14"
-        ]
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "24",
@@ -1386,18 +1166,15 @@
         ],
         "similarityRel": [],
         "son": [
+            "25"
         ],
         "father": [
             "22"
         ],
         "type": "0",
-        "totalDuration": 7,
-        "tags": [
-            "equation15"
-        ],
-        "serTags": [
-            "equation15"
-        ]
+        "totalDuration": 47,
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "25",
@@ -1438,20 +1215,12 @@
         ],
         "son": [],
         "father": [
-            "22"
+            "24"
         ],
         "type": "0",
         "totalDuration": 40,
-        "tags": [
-            "equation11",
-            "equation12",
-            "equation16"
-        ],
-        "serTags": [
-            "equation11",
-            "equation12",
-            "equation16"
-        ]
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "26",
@@ -1490,14 +1259,8 @@
         ],
         "type": "0",
         "totalDuration": 62,
-        "tags": [
-            "text17",
-            "equation10"
-        ],
-        "serTags": [
-            "text17",
-            "equation10"
-        ]
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "27",
@@ -1540,14 +1303,8 @@
         ],
         "type": "0",
         "totalDuration": 31,
-        "tags": [
-            "text16",
-            "equation9"
-        ],
-        "serTags": [
-            "text16",
-            "equation9"
-        ]
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "28",
@@ -1592,19 +1349,13 @@
         ],
         "type": "0",
         "totalDuration": 25,
-        "tags": [
-            "text15",
-            "equation8"
-        ],
-        "serTags": [
-            "text15",
-            "equation8"
-        ]
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "29",
         "layout": "0",
-        "name": "linear ...",
+        "name": "linear transformations of the n random variables",
         "time": [
             "00:09:08",
             "00:10:18"
@@ -1643,14 +1394,8 @@
         ],
         "type": "0",
         "totalDuration": 50,
-        "tags": [
-            "text6",
-            "equation1"
-        ],
-        "serTags": [
-            "text6",
-            "equation1"
-        ]
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "30",
@@ -1691,15 +1436,8 @@
         ],
         "type": "0",
         "totalDuration": 8,
-        "tags": [
-            "text8",
-            "equation2"
-        ],
-        "serTags": [
-            "text8",
-            "equation2",
-            "equation35"
-        ]
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "31",
@@ -1740,14 +1478,8 @@
         ],
         "type": "0",
         "totalDuration": 27,
-        "tags": [
-            "text5",
-            "equation0"
-        ],
-        "serTags": [
-            "text5",
-            "equation0"
-        ]
+        "tags": [],
+        "serTags": []
     },
     {
         "id": "32",

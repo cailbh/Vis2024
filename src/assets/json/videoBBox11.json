@@ -1839,8 +1839,8 @@
         "isConcept": [
             true
         ],
-        "concepts": ["0","1"],
-        "serveConcepts": ["1","2","6"]
+        "concepts": ["1","7","8"],
+        "serveConcepts": ["1","7","8"]
     },
     {
         "id": "equation46",
@@ -1858,8 +1858,8 @@
         "isConcept": [
             false
         ],
-        "concepts": ["0","1"],
-        "serveConcepts": ["1","2","6"]
+        "concepts": ["0","2","8"],
+        "serveConcepts": ["0","2","8"]
     },
     {
         "id": "text51",
@@ -1896,8 +1896,8 @@
         "isConcept": [
             true
         ],
-        "concepts": ["0","1"],
-        "serveConcepts": ["1","2","6"]
+        "concepts": ["8"],
+        "serveConcepts": ["8"]
     },
     {
         "id": "equation47",
@@ -1915,8 +1915,8 @@
         "isConcept": [
             false
         ],
-        "concepts": ["0","1"],
-        "serveConcepts": ["1","2","6"]
+        "concepts": ["0","7"],
+        "serveConcepts": ["0","7"]
     },
     {
         "id": "equation48",
@@ -1934,8 +1934,8 @@
         "isConcept": [
             false
         ],
-        "concepts": ["0","1"],
-        "serveConcepts": ["1","2","6"]
+        "concepts": ["0"],
+        "serveConcepts": ["0"]
     },
     {
         "id": "equation49",
@@ -1953,8 +1953,8 @@
         "isConcept": [
             false
         ],
-        "concepts": ["0","1"],
-        "serveConcepts": ["1","2","6"]
+        "concepts": ["0","8"],
+        "serveConcepts": ["0","8"]
     },
     {
         "id": "equation50",
@@ -1972,8 +1972,8 @@
         "isConcept": [
             false
         ],
-        "concepts": ["0","1"],
-        "serveConcepts": ["1","2","6"]
+        "concepts": ["0","8"],
+        "serveConcepts": ["0","8"]
     },
     {
         "id": "text53",
@@ -1991,8 +1991,8 @@
         "isConcept": [
             true
         ],
-        "concepts": ["0","1","6"],
-        "serveConcepts": ["1","2","3","4"]
+        "concepts": ["6"],
+        "serveConcepts": ["6"]
     },
     {
         "id": "equation51",
@@ -2010,8 +2010,8 @@
         "isConcept": [
             false
         ],
-        "concepts": ["0","1","6"],
-        "serveConcepts": ["1","2","3","4"]
+        "concepts": ["0","2","6"],
+        "serveConcepts": ["0","2","6"]
     },
     {
         "id": "equation52",
@@ -2029,7 +2029,7 @@
         "isConcept": [
             false
         ],
-        "concepts": ["0"],
+        "concepts": ["0","2","6"],
         "serveConcepts": ["0","2","6"]
     },
     {
@@ -2048,8 +2048,8 @@
         "isConcept": [
             true
         ],
-        "concepts": ["0","6"],
-        "serveConcepts": ["0","1","2","6"]
+        "concepts": ["6","7"],
+        "serveConcepts": ["6","7"]
     },
     {
         "id": "text55",
@@ -2067,7 +2067,7 @@
         "isConcept": [
             false
         ],
-        "concepts": [],
+        "concepts": ["6"],
         "serveConcepts": ["6"]
     },
     {
@@ -2086,8 +2086,8 @@
         "isConcept": [
             true
         ],
-        "concepts": ["0","3","6"],
-        "serveConcepts": ["0","2","3","4"]
+        "concepts": ["6","7","8"],
+        "serveConcepts": ["6","7","8"]
     },
     {
         "id": "equation53",
@@ -2255,9 +2255,9 @@
         ],
         "type": "text",
         "isConcept": [
-            true
+            false
         ],
-        "concepts": ["7"],
+        "concepts": [],
         "serveConcepts": []
     },
     {

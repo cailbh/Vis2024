@@ -29,7 +29,7 @@ function drawTxt(svg, tx, ty, txts, fill, size, idName, anchor = '') {
   // .attr("transform", `rotate(${roat} ${tx} ${ty})`);
 }
 
-function  drawTxts(svg, x, y, width, txts, fill, fontsize = 12, idN) {
+function  drawTxts(svg, x, y, width, txts, fill, fontsize = 12, idN,className) {
   let tx = x;
   let ty = y;
   let preWidth = 0;
@@ -43,6 +43,7 @@ function  drawTxts(svg, x, y, width, txts, fill, fontsize = 12, idN) {
     let txt = g.append("text")
       .attr("y", ty)
       .attr("x", tx)
+      .attr('class', className)
       .attr("id", `${idN}_${t}`)
       .attr("fill", fill)
       .attr("font-size", fontsize)
@@ -120,6 +121,19 @@ function drawPolygon(svg, points, idName, strokeWidth, stroke, fill,className) {
     .attr("fill", fill)
     .attr("stroke", stroke)
   return polygon;
+}
+function transitionSvg(time,temp, x, y, w, h, fill, stroke, opacity, type) {
+  if (type == 'rect') {
+    temp.transition()  // 开始执行动画
+      .duration(time)     // 设置动画持续时间
+      .attr("x", x)
+      .attr("y", y)
+      .attr("width", w)
+      .attr("height", h)
+      .attr("fill", fill)
+      .attr("opacity", opacity)
+      .attr("stroke", stroke)
+  }
 }
 function drawRect(svg, x, y, w, h, rx, fill, strokeWidth, stroke, opacity, idName, className, strokeDasharray = '0') {
   d3.select(`#${idName}`).remove();
@@ -255,8 +269,8 @@ export default {
   drawTxt: (svg, tx, ty, txts, fill, size, idName) => {
     return drawTxt(svg, tx, ty, txts, fill, size, idName);
   },
-  drawTxts: (svg, x, y, width, txts, fill, fontsize, idN)=>{
-    return  drawTxts(svg, x, y, width, txts, fill, fontsize, idN);
+  drawTxts: (svg, x, y, width, txts, fill, fontsize, idN,className='texts')=>{
+    return  drawTxts(svg, x, y, width, txts, fill, fontsize, idN,className);
   },
   drawCircle: (svg, x, y, r, fill, opacity, stroke, width, className, idName) => {
     return drawCircle(svg, x, y, r, fill, opacity, stroke, width, className, idName);
@@ -284,5 +298,8 @@ export default {
   },
   sleep:(d)=>{
     return sleep(d);
+  },
+  transitionSvg:(time,temp, x, y, w, h, fill, stroke, opacity, type)=>{
+    return transitionSvg(time,temp, x, y, w, h, fill, stroke, opacity, type);
   }
 }

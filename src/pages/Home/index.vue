@@ -30,7 +30,7 @@
           <!-- <scene :type="barType" :sky="skyState" :showLabelState="showLabelState"></scene> -->
         </div>
         <transition name="externalTran">
-          <div id="externalPanel" v-show="showExternal" class="panel">
+          <div id="externalContainer" v-show="showExternal" class="panel">
             <ExternalPanel></ExternalPanel>
           </div>
         </transition>
@@ -106,10 +106,10 @@ export default {
       ],
       
       tagsColor:{
-          "text":"rgb(239, 188, 105)",
-          "figure":"rgb(80, 132, 96)",
-          "equation":"rgb(205, 94, 104)",
-          "code block":"rgb(105, 23, 170)",
+          "text":"rgb(91, 174, 202)",
+          "figure":"rgb(91, 139, 106)",
+          "equation":"rgb(206, 96, 107)",
+          "code block":"rgb(238, 187, 105)",
       },
       marge: {
         top: 6,

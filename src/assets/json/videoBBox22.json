@@ -13,20 +13,10 @@
         ],
         "type": "text",
         "isConcept": [
-            true
+            false
         ],
-        "concepts": [
-            "19"
-        ],
-        "serveConcepts": [
-            "19"
-        ],
-        "conTime": [
-            [
-                "00:10:15",
-                "00:10:32"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": []
     },
     {
         "id": "text1",
@@ -44,19 +34,8 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "19"
-        ],
-        "serveConcepts": [
-            "19",
-            "20"
-        ],
-        "conTime": [
-            [
-                "00:10:15",
-                "00:10:32"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": []
     },
     {
         "id": "text2",
@@ -72,26 +51,10 @@
         ],
         "type": "text",
         "isConcept": [
-            true
+            false
         ],
-        "concepts": [
-            "19",
-            "20"
-        ],
-        "serveConcepts": [
-            "19",
-            "20"
-        ],
-        "conTime": [
-            [
-                "00:10:15",
-                "00:10:32"
-            ],
-            [
-                "00:10:32",
-                "00:10:37"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": []
     },
     {
         "id": "figure0",
@@ -109,24 +72,8 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "19",
-            "20"
-        ],
-        "serveConcepts": [
-            "19",
-            "20"
-        ],
-        "conTime": [
-            [
-                "00:10:15",
-                "00:10:32"
-            ],
-            [
-                "00:10:32",
-                "00:10:37"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": []
     },
     {
         "id": "text3",
@@ -142,26 +89,10 @@
         ],
         "type": "text",
         "isConcept": [
-            true
+            false
         ],
-        "concepts": [
-            "17",
-            "18"
-        ],
-        "serveConcepts": [
-            "17",
-            "18"
-        ],
-        "conTime": [
-            [
-                "00:08:02",
-                "00:08:09"
-            ],
-            [
-                "00:08:09",
-                "00:10:15"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": []
     },
     {
         "id": "figure1",
@@ -179,24 +110,8 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "17",
-            "18"
-        ],
-        "serveConcepts": [
-            "17",
-            "18"
-        ],
-        "conTime": [
-            [
-                "00:08:02",
-                "00:08:09"
-            ],
-            [
-                "00:08:09",
-                "00:10:15"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": []
     },
     {
         "id": "text4",
@@ -214,19 +129,8 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "17"
-        ],
-        "serveConcepts": [
-            "17",
-            "18"
-        ],
-        "conTime": [
-            [
-                "00:08:02",
-                "00:08:09"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": []
     },
     {
         "id": "text5",
@@ -242,26 +146,10 @@
         ],
         "type": "text",
         "isConcept": [
-            true
+            false
         ],
-        "concepts": [
-            "17",
-            "18"
-        ],
-        "serveConcepts": [
-            "17",
-            "18"
-        ],
-        "conTime": [
-            [
-                "00:08:02",
-                "00:08:09"
-            ],
-            [
-                "00:08:09",
-                "00:10:15"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": []
     },
     {
         "id": "figure2",
@@ -279,24 +167,8 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "17",
-            "18"
-        ],
-        "serveConcepts": [
-            "17",
-            "18"
-        ],
-        "conTime": [
-            [
-                "00:08:02",
-                "00:08:09"
-            ],
-            [
-                "00:08:09",
-                "00:10:15"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": []
     },
     {
         "id": "text6",
@@ -315,8 +187,7 @@
             false
         ],
         "concepts": [],
-        "serveConcepts": [],
-        "conTime": []
+        "serveConcepts": []
     },
     {
         "id": "text7",
@@ -335,11 +206,7 @@
             false
         ],
         "concepts": [],
-        "serveConcepts": [
-            "17",
-            "20"
-        ],
-        "conTime": []
+        "serveConcepts": ["17","20"]
     },
     {
         "id": "figure3",
@@ -357,19 +224,8 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "16"
-        ],
-        "serveConcepts": [
-            "17",
-            "20"
-        ],
-        "conTime": [
-            [
-                "00:07:00",
-                "00:08:02"
-            ]
-        ]
+        "concepts": ["16"],
+        "serveConcepts": ["17","20"]
     },
     {
         "id": "text8",
@@ -387,19 +243,8 @@
         "isConcept": [
             true
         ],
-        "concepts": [
-            "16"
-        ],
-        "serveConcepts": [
-            "17",
-            "20"
-        ],
-        "conTime": [
-            [
-                "00:10:32",
-                "00:10:37"
-            ]
-        ]
+        "concepts": ["20"],
+        "serveConcepts": ["17","20"]
     },
     {
         "id": "equation0",
@@ -418,12 +263,7 @@
             false
         ],
         "concepts": [],
-        "serveConcepts": [
-            "16",
-            "17",
-            "20"
-        ],
-        "conTime": []
+        "serveConcepts": ["17","20"]
     },
     {
         "id": "text9",
@@ -442,11 +282,7 @@
             false
         ],
         "concepts": [],
-        "serveConcepts": [
-            "17",
-            "18"
-        ],
-        "conTime": []
+        "serveConcepts": ["17","18"]
     },
     {
         "id": "text10",
@@ -464,33 +300,8 @@
         "isConcept": [
             true
         ],
-        "concepts": [
-            "16",
-            "17",
-            "18",
-            "20"
-        ],
-        "serveConcepts": [
-            "17"
-        ],
-        "conTime": [
-            [
-                "00:07:00",
-                "00:08:02"
-            ],
-            [
-                "00:08:02",
-                "00:08:09"
-            ],
-            [
-                "00:08:09",
-                "00:10:15"
-            ],
-            [
-                "00:10:32",
-                "00:10:37"
-            ]
-        ]
+        "concepts": ["16","17","18","20"],
+        "serveConcepts": ["17"]
     },
     {
         "id": "text11",
@@ -508,28 +319,8 @@
         "isConcept": [
             true
         ],
-        "concepts": [
-            "16",
-            "17",
-            "18"
-        ],
-        "serveConcepts": [
-            "18"
-        ],
-        "conTime": [
-            [
-                "00:07:00",
-                "00:08:02"
-            ],
-            [
-                "00:08:02",
-                "00:08:09"
-            ],
-            [
-                "00:08:09",
-                "00:10:15"
-            ]
-        ]
+        "concepts": ["16","17","18"],
+        "serveConcepts": ["18"]
     },
     {
         "id": "figure4",
@@ -547,18 +338,8 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "16"
-        ],
-        "serveConcepts": [
-            "17"
-        ],
-        "conTime": [
-            [
-                "00:07:00",
-                "00:08:02"
-            ]
-        ]
+        "concepts": ["16"],
+        "serveConcepts": ["17"]
     },
     {
         "id": "text12",
@@ -577,10 +358,7 @@
             false
         ],
         "concepts": [],
-        "serveConcepts": [
-            "16"
-        ],
-        "conTime": []
+        "serveConcepts": ["16"]
     },
     {
         "id": "text13",
@@ -599,10 +377,7 @@
             false
         ],
         "concepts": [],
-        "serveConcepts": [
-            "16"
-        ],
-        "conTime": []
+        "serveConcepts": ["16"]
     },
     {
         "id": "text14",
@@ -621,10 +396,7 @@
             false
         ],
         "concepts": [],
-        "serveConcepts": [
-            "16"
-        ],
-        "conTime": []
+        "serveConcepts": ["16"]
     },
     {
         "id": "text15",
@@ -642,18 +414,8 @@
         "isConcept": [
             true
         ],
-        "concepts": [
-            "16"
-        ],
-        "serveConcepts": [
-            "16"
-        ],
-        "conTime": [
-            [
-                "00:07:00",
-                "00:08:02"
-            ]
-        ]
+        "concepts": ["16"],
+        "serveConcepts": ["16"]
     },
     {
         "id": "text16",
@@ -671,18 +433,8 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "16"
-        ],
-        "serveConcepts": [
-            "16"
-        ],
-        "conTime": [
-            [
-                "00:07:00",
-                "00:08:02"
-            ]
-        ]
+        "concepts": ["16"],
+        "serveConcepts": ["16"]
     },
     {
         "id": "figure5",
@@ -700,18 +452,8 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "16"
-        ],
-        "serveConcepts": [
-            "16"
-        ],
-        "conTime": [
-            [
-                "00:07:00",
-                "00:08:02"
-            ]
-        ]
+        "concepts": ["16"],
+        "serveConcepts": ["16"]
     },
     {
         "id": "text17",
@@ -729,18 +471,8 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "12"
-        ],
-        "serveConcepts": [
-            "12"
-        ],
-        "conTime": [
-            [
-                "00:04:06",
-                "00:04:39"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": []
     },
     {
         "id": "figure6",
@@ -758,18 +490,8 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "12"
-        ],
-        "serveConcepts": [
-            "12"
-        ],
-        "conTime": [
-            [
-                "00:04:06",
-                "00:04:39"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": []
     },
     {
         "id": "text18",
@@ -787,18 +509,8 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "12"
-        ],
-        "serveConcepts": [
-            "12"
-        ],
-        "conTime": [
-            [
-                "00:04:06",
-                "00:04:39"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": []
     },
     {
         "id": "text19",
@@ -814,20 +526,10 @@
         ],
         "type": "text",
         "isConcept": [
-            true
+            false
         ],
-        "concepts": [
-            "12"
-        ],
-        "serveConcepts": [
-            "12"
-        ],
-        "conTime": [
-            [
-                "00:04:06",
-                "00:04:39"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": []
     },
     {
         "id": "text20",
@@ -845,26 +547,8 @@
         "isConcept": [
             true
         ],
-        "concepts": [
-            "10",
-            "11",
-            "12"
-        ],
-        "serveConcepts": [],
-        "conTime": [
-            [
-                "00:02:12",
-                "00:02:41"
-            ],
-            [
-                "00:02:41",
-                "00:04:06"
-            ],
-            [
-                "00:04:06",
-                "00:04:39"
-            ]
-        ]
+        "concepts": ["10","11","12"],
+        "serveConcepts": []
     },
     {
         "id": "figure7",
@@ -883,11 +567,7 @@
             false
         ],
         "concepts": [],
-        "serveConcepts": [
-            "10",
-            "11"
-        ],
-        "conTime": []
+        "serveConcepts": ["10","11"]
     },
     {
         "id": "figure8",
@@ -906,11 +586,7 @@
             false
         ],
         "concepts": [],
-        "serveConcepts": [
-            "10",
-            "12"
-        ],
-        "conTime": []
+        "serveConcepts": ["10","12"]
     },
     {
         "id": "text21",
@@ -928,30 +604,8 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "10",
-            "11",
-            "12"
-        ],
-        "serveConcepts": [
-            "10",
-            "11",
-            "12"
-        ],
-        "conTime": [
-            [
-                "00:02:12",
-                "00:02:41"
-            ],
-            [
-                "00:02:41",
-                "00:04:06"
-            ],
-            [
-                "00:04:06",
-                "00:04:39"
-            ]
-        ]
+        "concepts": ["10","11","12"],
+        "serveConcepts": ["10","11","12"]
     },
     {
         "id": "text22",
@@ -969,26 +623,8 @@
         "isConcept": [
             true
         ],
-        "concepts": [
-            "10",
-            "11",
-            "12"
-        ],
-        "serveConcepts": [],
-        "conTime": [
-            [
-                "00:02:12",
-                "00:02:41"
-            ],
-            [
-                "00:02:41",
-                "00:04:06"
-            ],
-            [
-                "00:04:06",
-                "00:04:39"
-            ]
-        ]
+        "concepts": ["10","11","12"],
+        "serveConcepts": []
     },
     {
         "id": "text23",
@@ -1006,30 +642,8 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "10",
-            "11",
-            "12"
-        ],
-        "serveConcepts": [
-            "10",
-            "11",
-            "12"
-        ],
-        "conTime": [
-            [
-                "00:02:12",
-                "00:02:41"
-            ],
-            [
-                "00:02:41",
-                "00:04:06"
-            ],
-            [
-                "00:04:06",
-                "00:04:39"
-            ]
-        ]
+        "concepts": ["10","11","12"],
+        "serveConcepts": []
     },
     {
         "id": "figure9",
@@ -1047,19 +661,8 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "10"
-        ],
-        "serveConcepts": [
-            "10",
-            "11"
-        ],
-        "conTime": [
-            [
-                "00:02:12",
-                "00:02:41"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": ["10","11"]
     },
     {
         "id": "figure10",
@@ -1077,20 +680,8 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "11"
-        ],
-        "serveConcepts": [
-            "10",
-            "11",
-            "12"
-        ],
-        "conTime": [
-            [
-                "00:02:41",
-                "00:04:06"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": ["10","12"]
     },
     {
         "id": "text24",
@@ -1109,8 +700,7 @@
             false
         ],
         "concepts": [],
-        "serveConcepts": [],
-        "conTime": []
+        "serveConcepts": []
     },
     {
         "id": "text25",
@@ -1128,18 +718,8 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "6"
-        ],
-        "serveConcepts": [
-            "6"
-        ],
-        "conTime": [
-            [
-                "00:01:44",
-                "00:01:46"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": []
     },
     {
         "id": "text26",
@@ -1157,24 +737,8 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "3",
-            "6"
-        ],
-        "serveConcepts": [
-            "3",
-            "6"
-        ],
-        "conTime": [
-            [
-                "00:01:29",
-                "00:01:30"
-            ],
-            [
-                "00:01:44",
-                "00:01:46"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": []
     },
     {
         "id": "text27",
@@ -1193,8 +757,7 @@
             false
         ],
         "concepts": [],
-        "serveConcepts": [],
-        "conTime": []
+        "serveConcepts": []
     },
     {
         "id": "text28",
@@ -1210,21 +773,10 @@
         ],
         "type": "text",
         "isConcept": [
-            true
+            false
         ],
-        "concepts": [
-            "2"
-        ],
-        "serveConcepts": [
-            "1",
-            "2"
-        ],
-        "conTime": [
-            [
-                "00:01:23",
-                "00:01:29"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": []
     },
     {
         "id": "figure11",
@@ -1242,18 +794,8 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "0"
-        ],
-        "serveConcepts": [
-            "0"
-        ],
-        "conTime": [
-            [
-                "00:00:00",
-                "00:00:09"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": []
     },
     {
         "id": "text29",
@@ -1272,8 +814,7 @@
             false
         ],
         "concepts": [],
-        "serveConcepts": [],
-        "conTime": []
+        "serveConcepts": []
     },
     {
         "id": "text30",
@@ -1291,18 +832,8 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "0"
-        ],
-        "serveConcepts": [
-            "0"
-        ],
-        "conTime": [
-            [
-                "00:00:00",
-                "00:00:09"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": []
     },
     {
         "id": "text31",
@@ -1320,17 +851,7 @@
         "isConcept": [
             false
         ],
-        "concepts": [
-            "0"
-        ],
-        "serveConcepts": [
-            "0"
-        ],
-        "conTime": [
-            [
-                "00:00:00",
-                "00:00:09"
-            ]
-        ]
+        "concepts": [],
+        "serveConcepts": []
     }
 ]

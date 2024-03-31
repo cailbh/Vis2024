@@ -2,13 +2,13 @@
 <!-- eslint-disable no-unused-vars -->
 
 <template>
-  <div class="externalPanel">
+  <div id="externalPanel" ref="externalDiv">
     <!-- <div class="panelHead">SupportPanel</div> -->
-    <div id="externalPanelBody" class="panelBody" ref="externalDiv">
-      <div class="chatWin">
+    <!-- <div id="externalPanelBody" class=""> -->
+      <!-- <div class="chatWin">
         <ChatWindow></ChatWindow>
-      </div>
-    </div>
+      </div> -->
+    <!-- </div> -->
   </div>
 </template>
 
@@ -55,13 +55,13 @@ export default {
     drawMain() {
       const _this = this;
       let width = _this.width;
-      let height = _this.height;
-      d3.select("#externalPanelBody").select("svg").remove();
-      let svg = d3.select("#externalPanelBody").append("svg")
+      let height = this.width*this.zoomVideoHeight / this.zoomVideoWidth;
+      d3.select("#externalPanel").select("svg").remove();
+      let svg = d3.select("#externalPanel").append("svg")
         .attr("class", "externalShowTags")
         .attr("width", width)
         .attr("height", height)
-      // .attr("transform", `translate(${margin.left},${margin.top})`);
+      .attr("transform", `translate(${0},${Math.abs(height - _this.height)/2})`);
       let videoG = svg.append("g")
         .attr("class", "externalShowTags")
         .attr("width", width)
@@ -104,11 +104,12 @@ export default {
       let g = this.tagsG;
       let width = this.width;
       let height = this.zoomVideoHeight * this.width / this.zoomVideoWidth;
-      let tags = _this.tagsList;
+      let tags = _this.tagsList[0];
       let tagsColor = _this.tagsColor;
       let tagVideoSize = this.tagVideoSize;
       let tagLinearW = d3.scaleLinear([0, tagVideoSize[0]], [0, width]);
       let tagLinearH = d3.scaleLinear([0, tagVideoSize[1]], [0, height]);
+      console.log(tags)
       for (let i = 0; i < tags.length; i++) {
         let boundingBox = tags[i]['boundingBox'];
         let x = tagLinearW(boundingBox['left']);
